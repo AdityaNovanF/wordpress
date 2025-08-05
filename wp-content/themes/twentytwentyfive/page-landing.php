@@ -39,9 +39,9 @@ get_header(); ?>
 
 <div class="landing-page-container">
     <!-- Navigation Bar -->
-    <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-white shadow-sm">
-        <div class="container">
-            <a class="navbar-brand fw-bold" href="#">
+    <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-white shadow-sm py-0" style="top: var(--wp-admin--admin-bar--height, 0);">
+        <div class="container h-100">
+            <a class="navbar-brand fw-bold fs-4 py-0" href="#">
                 <span class="text-primary">Spanish</span>Talking
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -69,14 +69,17 @@ get_header(); ?>
     </nav>
 
     <!-- Hero Section -->
-    <section class="hero-section bg-light py-5 mt-5">
-        <div class="container">
-            <div class="row align-items-center min-vh-75">
+    <section class="hero-section position-relative overflow-hidden d-flex align-items-center">
+        <div class="hero-bg position-absolute w-100 h-100" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);"></div>
+        <div class="container position-relative">
+            <div class="row align-items-center py-5">
                 <div class="col-lg-6" data-aos="fade-right">
-                    <span class="badge bg-primary-subtle text-primary mb-3 px-3 py-2 rounded-pill">Best Way to Learn Spanish</span>
-                    <h1 class="display-4 fw-bold mb-4">
+                    <span class="badge bg-primary bg-opacity-10 text-primary mb-3 px-3 py-2 rounded-pill fw-semibold">
+                        Best Way to Learn Spanish
+                    </span>
+                    <h1 class="display-4 fw-bold mb-4 lh-sm">
                         Master Spanish Through
-                        <span class="text-primary">Engaging Stories</span>
+                        <span class="text-primary d-inline-block">Engaging Stories</span>
                     </h1>
                     <p class="lead text-secondary mb-4">
                         Learn Spanish naturally with captivating stories. No boring exercises, no forced memorization - just interesting stories that will help you achieve fluency.
@@ -110,32 +113,46 @@ get_header(); ?>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6" data-aos="fade-left">
-                    <div class="position-relative">
-                        <div class="position-absolute top-50 start-50 translate-middle w-75 h-75 bg-primary opacity-10 rounded-circle filter-blur"></div>
-                        <img src="<?php echo esc_url(get_theme_file_uri('assets/hero-image.jpg')); ?>" 
-                             alt="Learn Spanish through stories" 
-                             class="img-fluid rounded-4 shadow-lg hero-image"
-                        >
-                        <!-- Floating Elements -->
-                        <div class="position-absolute top-0 start-0 bg-white p-3 rounded-4 shadow-lg" style="transform: translate(-20%, 20%);" data-aos="fade-right" data-aos-delay="200">
+                <div class="col-lg-6" data-aos="fade-up">
+                    <div class="position-relative mt-5 mt-lg-0">
+                        <!-- Background Shapes -->
+                        <div class="position-absolute top-50 start-50 translate-middle w-100 h-100">
+                            <div class="position-absolute top-0 end-0 bg-primary opacity-10 rounded-circle" 
+                                 style="width: 300px; height: 300px; filter: blur(40px); transform: translate(20%, -20%);"></div>
+                            <div class="position-absolute bottom-0 start-0 bg-info opacity-10 rounded-circle" 
+                                 style="width: 200px; height: 200px; filter: blur(40px); transform: translate(-20%, 20%);"></div>
+                        </div>
+                        
+                        <!-- Main Image -->
+                        <div class="position-relative" data-aos="fade-up">
+                            <img src="<?php echo esc_url(get_theme_file_uri('assets/hero-image.jpg')); ?>" 
+                                 alt="Learn Spanish through stories" 
+                                 class="img-fluid rounded-4 shadow-lg"
+                                 style="max-height: 500px; object-fit: cover; width: 100%;"
+                            >
+                        </div>
+                        
+                        <!-- Modern Floating Cards -->
+                        <div class="modern-floating-card card-1" 
+                             data-aos="fade-right" data-aos-delay="200">
                             <div class="d-flex align-items-center gap-3">
-                                <div class="bg-primary-subtle p-2 rounded-circle">
+                                <div class="icon-wrapper">
                                     <i class="fas fa-book text-primary"></i>
                                 </div>
                                 <div>
-                                    <h6 class="mb-0">Interactive Stories</h6>
+                                    <h6 class="mb-1 fw-semibold">Interactive Stories</h6>
                                     <small class="text-secondary">Learn naturally</small>
                                 </div>
                             </div>
                         </div>
-                        <div class="position-absolute bottom-0 end-0 bg-white p-3 rounded-4 shadow-lg" style="transform: translate(20%, -20%);" data-aos="fade-left" data-aos-delay="400">
+                        <div class="modern-floating-card card-2" 
+                             data-aos="fade-left" data-aos-delay="400">
                             <div class="d-flex align-items-center gap-3">
-                                <div class="bg-primary-subtle p-2 rounded-circle">
+                                <div class="icon-wrapper">
                                     <i class="fas fa-graduation-cap text-primary"></i>
                                 </div>
                                 <div>
-                                    <h6 class="mb-0">Certified Teachers</h6>
+                                    <h6 class="mb-1 fw-semibold">Certified Teachers</h6>
                                     <small class="text-secondary">Native speakers</small>
                                 </div>
                             </div>
@@ -145,12 +162,141 @@ get_header(); ?>
             </div>
         </div>
     </section>
+    <!-- Add Hero Section Styles -->
+    <style>
+        :root {
+            --navbar-height: 56px;
+        }
+
+        .hero-section {
+            background-color: #f8f9fa;
+            overflow: hidden;
+            min-height: 100vh;
+            padding: 0;
+            margin: 0;
+            margin-top: calc(var(--navbar-height) * -1);
+            padding-top: var(--navbar-height);
+            display: flex;
+            align-items: center;
+        }
+        
+        .hero-bg {
+            background-size: cover;
+            background-position: center;
+            opacity: 0.8;
+            top: 0;
+        }
+
+        body.admin-bar .hero-section {
+            min-height: 100vh;
+            margin-top: calc((var(--navbar-height) + var(--wp-admin--admin-bar--height, 0px)) * -1);
+            padding-top: calc(var(--navbar-height) + var(--wp-admin--admin-bar--height, 0px));
+        }
+
+        .landing-page-container > section:not(.hero-section) {
+            padding: 6rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Modern Floating Cards */
+        .modern-floating-card {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 1rem 1.5rem;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            z-index: 2;
+        }
+
+        .modern-floating-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        .modern-floating-card.card-1 {
+            top: 10%;
+            right: -30px;
+        }
+
+        .modern-floating-card.card-2 {
+            bottom: 10%;
+            left: -30px;
+        }
+
+        .modern-floating-card .icon-wrapper {
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(13, 110, 253, 0.1);
+            border-radius: 12px;
+            font-size: 1.25rem;
+        }
+        
+        @media (max-width: 991.98px) {
+            .hero-section {
+                text-align: center;
+            }
+            
+            .hero-section .d-flex {
+                justify-content: center;
+            }
+            
+            .modern-floating-card {
+                position: static;
+                margin: 1rem auto;
+                max-width: 280px;
+                transform: none !important;
+            }
+
+            .modern-floating-card.card-1,
+            .modern-floating-card.card-2 {
+                top: auto;
+                right: auto;
+                bottom: auto;
+                left: auto;
+            }
+        }
+
+        .navbar {
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.9) !important;
+            transition: all 0.3s ease;
+            height: var(--navbar-height);
+            min-height: auto;
+            padding: 0;
+        }
+
+        .navbar-brand,
+        .nav-link,
+        .navbar .btn {
+            line-height: var(--navbar-height);
+            padding-top: 0 !important;
+            padding-bottom: 0 !important;
+        }
+
+        .navbar.scrolled {
+            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+        }
+        
+        .landing-page-container {
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+
     <!-- Stats Section -->
-    <section class="py-5 bg-light position-relative overflow-hidden">
-        <div class="container py-5">
+    <section class="bg-white position-relative">
+        <div class="container">
             <div class="row g-4 justify-content-center">
                 <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
-                    <div class="card border-0 bg-white shadow-sm hover-shadow-lg transition-all h-100">
+                    <div class="card border-0 bg-light shadow-sm hover-shadow-lg transition-all h-100">
                         <div class="card-body text-center p-5">
                             <div class="stats-icon mb-3">
                                 <i class="fas fa-book-open text-primary fa-2x"></i>
@@ -161,7 +307,7 @@ get_header(); ?>
                     </div>
                 </div>
                 <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
-                    <div class="card border-0 bg-white shadow-sm hover-shadow-lg transition-all h-100">
+                    <div class="card border-0 bg-light shadow-sm hover-shadow-lg transition-all h-100">
                         <div class="card-body text-center p-5">
                             <div class="stats-icon mb-3">
                                 <i class="fas fa-book text-primary fa-2x"></i>
@@ -172,7 +318,7 @@ get_header(); ?>
                     </div>
                 </div>
                 <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
-                    <div class="card border-0 bg-white shadow-sm hover-shadow-lg transition-all h-100">
+                    <div class="card border-0 bg-light shadow-sm hover-shadow-lg transition-all h-100">
                         <div class="card-body text-center p-5">
                             <div class="stats-icon mb-3">
                                 <i class="fas fa-users text-primary fa-2x"></i>
@@ -184,19 +330,8 @@ get_header(); ?>
                 </div>
             </div>
         </div>
-        <!-- Background Shape -->
-        <div class="position-absolute top-0 start-0 w-100 h-100 overflow-hidden" style="z-index: 0;">
-            <div class="position-absolute top-50 start-0 translate-middle-y opacity-10">
-                <svg width="800" height="800" viewBox="0 0 200 200">
-                    <path fill="#0d6efd" d="M41.9,-72.5C54,-67.2,63.3,-55.7,71.6,-42.8C79.9,-29.9,87.2,-15,86.6,-0.3C86,14.3,77.5,28.6,67.9,41.1C58.3,53.6,47.6,64.3,34.9,70.7C22.2,77.1,7.6,79.2,-6.4,77.8C-20.4,76.4,-34.8,71.5,-45.8,63.1C-56.8,54.7,-64.4,42.8,-71.1,29.7C-77.8,16.5,-83.6,2.1,-82.1,-11.8C-80.7,-25.7,-72,-39,-61.1,-48.3C-50.1,-57.7,-36.8,-63,-24.3,-67.8C-11.7,-72.6,0.1,-76.9,12.8,-77.8C25.5,-78.8,39.1,-76.4,41.9,-72.5Z" transform="translate(100 100)" />
-                </svg>
-            </div>
-            <div class="position-absolute top-50 end-0 translate-middle-y opacity-10">
-                <svg width="800" height="800" viewBox="0 0 200 200">
-                    <path fill="#0d6efd" d="M47.7,-73.2C59.5,-67.3,65.9,-51.5,71.9,-35.9C77.9,-20.3,83.5,-4.9,81.9,9.7C80.4,24.2,71.7,37.9,60.4,47.4C49.1,56.9,35.1,62.2,20.8,66.5C6.6,70.8,-8,74.1,-21.4,71.2C-34.8,68.2,-47,59,-56.9,47.4C-66.8,35.8,-74.4,21.8,-77.1,6.5C-79.8,-8.8,-77.7,-25.4,-69.3,-37.7C-61,-50,-46.4,-58,-32.8,-62.9C-19.2,-67.8,-6.5,-69.5,7.8,-71.6C22.1,-73.7,36,-79.1,47.7,-73.2Z" transform="translate(100 100)" />
-                </svg>
-            </div>
-        </div>
+        <!-- Subtle Background Pattern -->
+        <div class="position-absolute top-0 start-0 w-100 h-100" style="background-image: radial-gradient(circle at 50% 50%, rgba(248, 249, 250, 0.1) 0%, rgba(248, 249, 250, 0.05) 25%, transparent 50%);"></div>
         <!-- Add Intersection Observer for counting animation -->
         <script>
             document.addEventListener('DOMContentLoaded', function() {
@@ -234,116 +369,131 @@ get_header(); ?>
     </section>
 
     <!-- Why Choose Us Section -->
-    <section class="py-5 bg-gradient" id="method">
-        <div class="container py-5">
+    <section class="py-5 position-relative bg-light" id="method">
+        <!-- Background Gradient -->
+        <div class="position-absolute top-0 start-0 w-100 h-100" style="background: linear-gradient(180deg, rgba(248, 249, 250, 0.9) 0%, rgba(232, 240, 254, 0.9) 100%);"></div>
+        
+        <div class="container py-5 position-relative">
+            <!-- Section Header -->
             <div class="row justify-content-center mb-5">
-                <div class="col-lg-8 text-center">
-                    <h2 class="display-5 fw-bold mb-4" data-aos="fade-up">Why Choose Spanish Talking?</h2>
-                    <div class="divider-custom" data-aos="fade-up" data-aos-delay="100">
-                        <div class="line"></div>
-                        <div class="icon"><i class="fas fa-star"></i></div>
-                        <div class="line"></div>
+                <div class="col-lg-7 text-center">
+                    <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill mb-3" data-aos="fade-up">
+                        Our Unique Approach
+                    </span>
+                    <h2 class="display-5 fw-bold mb-4" data-aos="fade-up">
+                        Why Choose <span class="text-primary">Spanish Talking</span>?
+                    </h2>
+                    <p class="lead text-muted mb-0" data-aos="fade-up" data-aos-delay="100">
+                        Discover how our innovative methods make learning Spanish natural and enjoyable
+                    </p>
+                </div>
+            </div>
+
+            <!-- Features Grid -->
+            <div class="row g-4 justify-content-center">
+                <!-- Feature 1: Interactive Learning -->
+                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="card h-100 border-0 shadow-sm rounded-4 p-2">
+                        <div class="card-body p-4">
+                            <div class="d-inline-block p-3 bg-primary bg-opacity-10 rounded-3 mb-4">
+                                <i class="fas fa-book-reader fa-2x text-primary"></i>
+                            </div>
+                            <h3 class="h4 fw-bold mb-3">Interactive Stories</h3>
+                            <p class="text-muted mb-4">Learn through engaging stories crafted by native speakers, making language acquisition natural and enjoyable.</p>
+                            <div class="border-top pt-4">
+                                <div class="d-flex align-items-center text-primary">
+                                    <small class="fw-semibold me-2">Included Features:</small>
+                                </div>
+                                <div class="mt-2">
+                                    <span class="badge bg-primary bg-opacity-10 text-primary me-2 mb-2">Audio Stories</span>
+                                    <span class="badge bg-primary bg-opacity-10 text-primary me-2 mb-2">Interactive Exercises</span>
+                                    <span class="badge bg-primary bg-opacity-10 text-primary mb-2">Cultural Notes</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Feature 2: Personalized Learning -->
+                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="card h-100 border-0 shadow-sm rounded-4 p-2">
+                        <div class="card-body p-4">
+                            <div class="d-inline-block p-3 bg-primary bg-opacity-10 rounded-3 mb-4">
+                                <i class="fas fa-user-graduate fa-2x text-primary"></i>
+                            </div>
+                            <h3 class="h4 fw-bold mb-3">Personalized Learning</h3>
+                            <p class="text-muted mb-4">Adaptive learning system that adjusts to your pace and style, ensuring optimal progress at every step.</p>
+                            <div class="border-top pt-4">
+                                <div class="d-flex align-items-center text-primary">
+                                    <small class="fw-semibold me-2">Smart Features:</small>
+                                </div>
+                                <div class="mt-2">
+                                    <span class="badge bg-primary bg-opacity-10 text-primary me-2 mb-2">Progress Tracking</span>
+                                    <span class="badge bg-primary bg-opacity-10 text-primary me-2 mb-2">Custom Path</span>
+                                    <span class="badge bg-primary bg-opacity-10 text-primary mb-2">Level Assessment</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Feature 3: Expert Support -->
+                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="card h-100 border-0 shadow-sm rounded-4 p-2">
+                        <div class="card-body p-4">
+                            <div class="d-inline-block p-3 bg-primary bg-opacity-10 rounded-3 mb-4">
+                                <i class="fas fa-users fa-2x text-primary"></i>
+                            </div>
+                            <h3 class="h4 fw-bold mb-3">Expert Support</h3>
+                            <p class="text-muted mb-4">Get guidance from certified native Spanish teachers and practice with fellow learners in our community.</p>
+                            <div class="border-top pt-4">
+                                <div class="d-flex align-items-center text-primary">
+                                    <small class="fw-semibold me-2">Support Options:</small>
+                                </div>
+                                <div class="mt-2">
+                                    <span class="badge bg-primary bg-opacity-10 text-primary me-2 mb-2">Live Sessions</span>
+                                    <span class="badge bg-primary bg-opacity-10 text-primary me-2 mb-2">Community</span>
+                                    <span class="badge bg-primary bg-opacity-10 text-primary mb-2">24/7 Help</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            
-            <div class="row g-4 justify-content-center">
-                <!-- Feature 1 -->
-                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
-                    <div class="card feature-card h-100 border-0 rounded-4 shadow-sm hover-shadow-lg transition-all">
-                        <div class="card-body p-5 text-center">
-                            <div class="feature-icon-wrapper mb-4">
-                                <div class="feature-icon-bg rounded-circle d-flex align-items-center justify-content-center mx-auto">
-                                    <i class="fas fa-book-reader fa-2x text-primary"></i>
-                                </div>
-                            </div>
-                            <h3 class="h4 mb-3">Engaging Stories</h3>
-                            <p class="text-muted mb-0">Learn Spanish through interesting and culturally relevant stories that keep you engaged.</p>
-                        </div>
-                    </div>
-                </div>
 
-                <!-- Feature 2 -->
-                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
-                    <div class="card feature-card h-100 border-0 rounded-4 shadow-sm hover-shadow-lg transition-all">
-                        <div class="card-body p-5 text-center">
-                            <div class="feature-icon-wrapper mb-4">
-                                <div class="feature-icon-bg rounded-circle d-flex align-items-center justify-content-center mx-auto">
-                                    <i class="fas fa-graduation-cap fa-2x text-primary"></i>
-                                </div>
-                            </div>
-                            <h3 class="h4 mb-3">Natural Method</h3>
-                            <p class="text-muted mb-0">Learn like children do: through natural language exposure, without forced memorization.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Feature 3 -->
-                <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
-                    <div class="card feature-card h-100 border-0 rounded-4 shadow-sm hover-shadow-lg transition-all">
-                        <div class="card-body p-5 text-center">
-                            <div class="feature-icon-wrapper mb-4">
-                                <div class="feature-icon-bg rounded-circle d-flex align-items-center justify-content-center mx-auto">
-                                    <i class="fas fa-mobile-alt fa-2x text-primary"></i>
-                                </div>
-                            </div>
-                            <h3 class="h4 mb-3">Learn Anywhere</h3>
-                            <p class="text-muted mb-0">Access your lessons from any device, anytime and anywhere.</p>
-                        </div>
-                    </div>
-                </div>
+            <!-- Call to Action -->
+            <div class="text-center mt-5 pt-3" data-aos="fade-up" data-aos-delay="400">
+                <a href="#courses" class="btn btn-primary btn-lg rounded-pill px-5">
+                    Start Learning Now
+                </a>
             </div>
         </div>
-
-        <!-- Add custom styles for this section -->
-        <style>
-        .bg-gradient {
-            background: linear-gradient(180deg, #f8f9fa 0%, #e9ecef 100%);
-        }
-        
-        .divider-custom {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 1.5rem 0;
-        }
-        
-        .divider-custom .line {
-            width: 60px;
-            height: 3px;
-            background: var(--bs-primary);
-            border-radius: 1rem;
-        }
-        
-        .divider-custom .icon {
-            color: var(--bs-primary);
-            font-size: 1.5rem;
-            margin: 0 1rem;
-        }
-        
-        .feature-icon-bg {
-            width: 80px;
-            height: 80px;
-            background-color: rgba(13, 110, 253, 0.1);
-        }
-        
-        .feature-card {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-10px);
-        }
-        
-        .hover-shadow-lg {
-            transition: box-shadow 0.3s ease;
-        }
-        
-        .hover-shadow-lg:hover {
-            box-shadow: 0 1rem 3rem rgba(0,0,0,.175)!important;
-        }
-        </style>
     </section>
+
+    <style>
+    /* Card hover effects */
+    .card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 1rem 3rem rgba(0,0,0,.075)!important;
+    }
+
+    /* Badge styles */
+    .badge {
+        font-weight: 500;
+        padding: 0.5em 1em;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .card {
+            margin-bottom: 1rem;
+        }
+    }
+    </style>
 
     <!-- Course Selection Section -->
     <section class="py-5 bg-white" id="courses">
@@ -452,7 +602,7 @@ get_header(); ?>
     <section class="py-5 bg-light" id="blog">
         <div class="container py-5">
             <div class="text-center mb-5">
-                <h2 class="display-4 fw-bold mb-4">Latest Articles</h2>
+                <h2 class="display-4 fw-bold mb-4">Artikel Terbaru</h2>
                 <div class="divider-custom">
                     <div class="line"></div>
                     <div class="icon"><i class="fas fa-newspaper"></i></div>
@@ -463,7 +613,7 @@ get_header(); ?>
                 <?php
                 $args = array(
                     'post_type' => 'post',
-                    'posts_per_page' => 3,
+                    'posts_per_page' => 6, // Menampilkan 6 artikel
                     'orderby' => 'date',
                     'order' => 'DESC'
                 );
@@ -471,43 +621,114 @@ get_header(); ?>
                 if ($latest_posts->have_posts()) :
                     while ($latest_posts->have_posts()) : $latest_posts->the_post();
                 ?>
-                    <div class="col-lg-4 mb-4">
-                        <div class="card h-100 border-0 shadow-sm hover-shadow-lg transition-all">
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <article class="card h-100 border-0 shadow-sm hover-shadow-lg transition-all">
                             <?php if (has_post_thumbnail()) : ?>
-                            <div class="card-img-wrapper">
-                                <?php the_post_thumbnail('medium', array('class' => 'card-img-top')); ?>
+                            <div class="card-img-wrapper overflow-hidden">
+                                <?php the_post_thumbnail('medium_large', array(
+                                    'class' => 'card-img-top transition-all',
+                                    'style' => 'height: 240px; object-fit: cover;'
+                                )); ?>
                             </div>
                             <?php endif; ?>
                             <div class="card-body p-4">
-                                <div class="text-muted small mb-2">
-                                    <?php echo get_the_date('F j, Y'); ?> • <?php echo get_the_category_list(', '); ?>
+                                <!-- Kategori -->
+                                <div class="mb-2">
+                                    <?php
+                                    $categories = get_the_category();
+                                    if ($categories) {
+                                        foreach($categories as $category) {
+                                            echo '<span class="badge bg-primary bg-opacity-10 text-primary me-2">' . 
+                                                  esc_html($category->name) . 
+                                                  '</span>';
+                                        }
+                                    }
+                                    ?>
                                 </div>
-                                <h3 class="h5 card-title">
-                                    <a href="<?php the_permalink(); ?>" class="text-decoration-none text-dark">
+                                <!-- Judul -->
+                                <h3 class="h5 card-title mb-3">
+                                    <a href="<?php the_permalink(); ?>" class="text-decoration-none text-dark stretched-link">
                                         <?php the_title(); ?>
                                     </a>
                                 </h3>
-                                <p class="card-text text-muted">
-                                    <?php echo wp_trim_words(get_the_excerpt(), 20); ?>
+                                <!-- Excerpt -->
+                                <p class="card-text text-muted mb-3">
+                                    <?php echo wp_trim_words(get_the_excerpt(), 15); ?>
                                 </p>
-                                <a href="<?php the_permalink(); ?>" class="btn btn-outline-primary rounded-pill">Read More</a>
+                                <!-- Meta -->
+                                <div class="d-flex align-items-center text-muted small">
+                                    <div class="d-flex align-items-center me-3">
+                                        <i class="fas fa-calendar-alt me-1"></i>
+                                        <?php echo get_the_date('j F Y'); ?>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <i class="fas fa-user me-1"></i>
+                                        <?php echo get_the_author(); ?>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                        </article>
                     </div>
                 <?php
                     endwhile;
                     wp_reset_postdata();
+                else:
+                    // Jika tidak ada artikel
+                    echo '<div class="col-12 text-center">';
+                    echo '<div class="alert alert-info">';
+                    echo 'Belum ada artikel yang dipublikasikan.';
+                    echo '</div>';
+                    echo '</div>';
                 endif;
                 ?>
             </div>
+            
+            <?php if ($latest_posts->have_posts()) : ?>
             <div class="text-center mt-5">
                 <a href="<?php echo get_permalink(get_option('page_for_posts')); ?>" 
                    class="btn btn-primary btn-lg rounded-pill px-5">
-                    View All Articles
+                    Lihat Semua Artikel
                 </a>
             </div>
+            <?php endif; ?>
         </div>
     </section>
+
+    <!-- Tambahkan CSS untuk Blog Section -->
+    <style>
+    .card .card-img-wrapper {
+        overflow: hidden;
+    }
+    
+    .card .card-img-top {
+        transition: transform 0.5s ease;
+    }
+    
+    .card:hover .card-img-top {
+        transform: scale(1.05);
+    }
+    
+    .badge {
+        font-weight: 500;
+        padding: 0.5em 1em;
+    }
+    
+    .stretched-link::after {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 1;
+        content: "";
+    }
+    
+    @media (max-width: 768px) {
+        .card .card-img-top {
+            height: 200px !important;
+        }
+    }
+    </style>
 
     <!-- Contact Section -->
     <section id="contact" class="py-5 bg-light">
