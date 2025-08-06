@@ -1,13 +1,94 @@
 <?php
 /**
- * Twenty Twenty-Five functions and definitions.
+ * Twenty Twenty-Five functions and definitions
  *
  * @link https://developer.wordpress.org/themes/basics/theme-functions/
  *
- * @package WordPress
- * @subpackage Twenty_Twenty_Five
+ * @package Twenty_Twenty-Five
  * @since Twenty Twenty-Five 1.0
  */
+
+// Aktifkan fitur thumbnail post
+add_theme_support('post-thumbnails');
+
+// Aktifkan fitur title-tag
+add_theme_support('title-tag');
+
+// Fungsi untuk memformat tanggal ke Bahasa Indonesia
+function format_tanggal_indonesia($tanggal) {
+    $bulan = array(
+        1 => 'Januari',
+        'Februari',
+        'Maret',
+        'April',
+        'Mei',
+        'Juni',
+        'Juli',
+        'Agustus',
+        'September',
+        'Oktober',
+        'November',
+        'Desember'
+    );
+
+    $split = explode('-', $tanggal);
+    return $split[2] . ' ' . $bulan[(int)$split[1]] . ' ' . $split[0];
+}
+
+// Aktifkan fitur excerpt
+add_post_type_support('post', 'excerpt');
+
+// Custom excerpt length
+function custom_excerpt_length($length) {
+    return 20;
+}
+add_filter('excerpt_length', 'custom_excerpt_length', 999);
+
+// Custom excerpt more
+function custom_excerpt_more($more) {
+    return '...';
+}
+add_filter('excerpt_more', 'custom_excerpt_more');
+
+// Tambahkan social media fields ke user profile
+function add_social_media_fields($user_contact) {
+    $user_contact['twitter'] = 'Twitter URL';
+    $user_contact['facebook'] = 'Facebook URL';
+    $user_contact['instagram'] = 'Instagram URL';
+    $user_contact['linkedin'] = 'LinkedIn URL';
+    
+    return $user_contact;
+}
+add_filter('user_contactmethods', 'add_social_media_fields');
+
+// Custom image sizes
+add_image_size('article-featured', 1200, 628, true);
+add_image_size('article-thumbnail', 600, 400, true);
+
+// Nonaktifkan Gutenberg editor styles di frontend
+function dequeue_gutenberg_theme_css() {
+    wp_dequeue_style('wp-block-library');
+    wp_dequeue_style('wp-block-library-theme');
+}
+add_action('wp_enqueue_scripts', 'dequeue_gutenberg_theme_css', 100);
+
+// Daftarkan lokasi menu
+register_nav_menus(array(
+    'primary' => 'Menu Utama',
+    'footer' => 'Menu Footer'
+));
+
+// Pastikan template single.php digunakan untuk post
+function use_custom_template($template) {
+    if (is_single()) {
+        $new_template = locate_template(array('single.php'));
+        if (!empty($new_template)) {
+            return $new_template;
+        }
+    }
+    return $template;
+}
+add_filter('template_include', 'use_custom_template');
 
 // Adds theme support for post formats.
 if ( ! function_exists( 'twentytwentyfive_post_format_setup' ) ) :

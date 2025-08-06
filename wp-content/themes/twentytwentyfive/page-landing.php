@@ -175,7 +175,7 @@ get_header(); ?>
             padding: 0;
             margin: 0;
             margin-top: calc(var(--navbar-height) * -1);
-            padding-top: var(--navbar-height);
+            padding-top: calc(var(--navbar-height));
             display: flex;
             align-items: center;
         }
@@ -487,10 +487,108 @@ get_header(); ?>
         padding: 0.5em 1em;
     }
 
+    /* Course Visual Styles */
+    .card-visual-wrapper {
+        height: 200px;
+        position: relative;
+        overflow: hidden;
+        border-radius: 16px 16px 0 0;
+    }
+
+    .course-visual {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+    }
+
+    .basic-course {
+        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    }
+
+    .intermediate-course {
+        background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+    }
+
+    .advanced-course {
+        background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+    }
+
+    .icon-circle {
+        width: 80px;
+        height: 80px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        color: white;
+        position: relative;
+        z-index: 2;
+        animation: pulse 2s infinite;
+    }
+
+    .wave-animation {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='rgba(255,255,255,0.1)' d='M0,96L48,112C96,128,192,160,288,186.7C384,213,480,235,576,213.3C672,192,768,128,864,128C960,128,1056,192,1152,208C1248,224,1344,192,1392,176L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E");
+        background-repeat: repeat-x;
+        background-size: 100% 100%;
+        animation: wave 15s linear infinite;
+    }
+
+    @keyframes pulse {
+        0% {
+            box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4);
+        }
+        70% {
+            box-shadow: 0 0 0 20px rgba(255, 255, 255, 0);
+        }
+        100% {
+            box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+        }
+    }
+
+    @keyframes wave {
+        0% {
+            background-position: 0 0;
+        }
+        100% {
+            background-position: 100% 0;
+        }
+    }
+
+    /* List Styles */
+    .list-unstyled li {
+        transition: all 0.3s ease;
+    }
+
+    .list-unstyled li:hover {
+        transform: translateX(5px);
+    }
+
+    .list-unstyled .fa-check-circle {
+        transition: all 0.3s ease;
+    }
+
+    .list-unstyled li:hover .fa-check-circle {
+        transform: scale(1.2);
+    }
+
     /* Responsive adjustments */
     @media (max-width: 768px) {
         .card {
             margin-bottom: 1rem;
+        }
+        
+        .card-visual-wrapper {
+            height: 160px;
         }
     }
     </style>
@@ -602,7 +700,7 @@ get_header(); ?>
     <section class="py-5 bg-light" id="blog">
         <div class="container py-5">
             <div class="text-center mb-5">
-                <h2 class="display-4 fw-bold mb-4">Artikel Terbaru</h2>
+                <h2 class="display-4 fw-bold mb-4">Latest Articles</h2>
                 <div class="divider-custom">
                     <div class="line"></div>
                     <div class="icon"><i class="fas fa-newspaper"></i></div>
@@ -673,10 +771,10 @@ get_header(); ?>
                     endwhile;
                     wp_reset_postdata();
                 else:
-                    // Jika tidak ada artikel
+                    // If no articles found
                     echo '<div class="col-12 text-center">';
                     echo '<div class="alert alert-info">';
-                    echo 'Belum ada artikel yang dipublikasikan.';
+                    echo 'No articles published yet.';
                     echo '</div>';
                     echo '</div>';
                 endif;
@@ -687,7 +785,7 @@ get_header(); ?>
             <div class="text-center mt-5">
                 <a href="<?php echo get_permalink(get_option('page_for_posts')); ?>" 
                    class="btn btn-primary btn-lg rounded-pill px-5">
-                    Lihat Semua Artikel
+                    View All Articles
                 </a>
             </div>
             <?php endif; ?>
@@ -731,22 +829,173 @@ get_header(); ?>
     </style>
 
     <!-- Contact Section -->
-    <section id="contact" class="py-5 bg-light">
-        <div class="container py-5">
+    <section id="contact" class="py-5 position-relative">
+        <div class="position-absolute top-0 start-0 w-100 h-100" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); opacity: 0.8;"></div>
+        <div class="container py-5 position-relative">
             <div class="row justify-content-center">
-                <div class="col-lg-8 text-center">
-                    <h2 class="display-4 fw-bold mb-4">Get in Touch</h2>
-                    <div class="divider-custom mb-5">
-                        <div class="line"></div>
-                        <div class="icon"><i class="fas fa-envelope"></i></div>
-                        <div class="line"></div>
+                <div class="col-lg-8 text-center mb-5">
+                    <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill mb-3" data-aos="fade-up">
+                        Contact Us
+                    </span>
+                    <h2 class="display-4 fw-bold mb-4" data-aos="fade-up">Get in Touch</h2>
+                    <p class="lead text-muted mb-0" data-aos="fade-up">Have questions about our Spanish courses? We're here to help!</p>
+                </div>
+            </div>
+            
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="card border-0 shadow-lg rounded-4 p-4" data-aos="fade-up">
+                        <div class="card-body">
+                            <form id="contactForm" class="needs-validation" novalidate>
+                                <div class="row g-4">
+                                    <div class="col-md-6">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control" id="name" placeholder="Your Name" required>
+                                            <label for="name">Your Name</label>
+                                            <div class="invalid-feedback">Please enter your name.</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-floating">
+                                            <input type="email" class="form-control" id="email" placeholder="Email Address" required>
+                                            <label for="email">Email Address</label>
+                                            <div class="invalid-feedback">Please enter a valid email.</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-floating">
+                                            <select class="form-select" id="subject" required>
+                                                <option value="" selected disabled>Select a subject</option>
+                                                <option value="course-inquiry">Course Inquiry</option>
+                                                <option value="private-tutoring">Private Tutoring</option>
+                                                <option value="general-question">General Question</option>
+                                                <option value="other">Other</option>
+                                            </select>
+                                            <label for="subject">Subject</label>
+                                            <div class="invalid-feedback">Please select a subject.</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-floating">
+                                            <textarea class="form-control" id="message" style="height: 150px" placeholder="Your Message" required></textarea>
+                                            <label for="message">Your Message</label>
+                                            <div class="invalid-feedback">Please enter your message.</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <button type="submit" class="btn btn-primary btn-lg rounded-pill w-100">
+                                            Send Message <i class="fas fa-paper-plane ms-2"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </div>
-                    <p class="lead text-muted mb-5">Have questions about our Spanish courses? We're here to help!</p>
-                    <?php echo do_shortcode('[contact-form-7 id="YOUR_FORM_ID" title="Contact form"]'); ?>
+                    
+                    <!-- Contact Information Cards -->
+                    <div class="row g-4 mt-5">
+                        <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                            <div class="card h-100 border-0 shadow-sm text-center p-4">
+                                <div class="card-body">
+                                    <div class="icon-wrapper bg-primary bg-opacity-10 text-primary rounded-circle mx-auto mb-4">
+                                        <i class="fas fa-envelope"></i>
+                                    </div>
+                                    <h5 class="fw-bold">Email</h5>
+                                    <p class="text-muted mb-0">info@spanishtalking.com</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                            <div class="card h-100 border-0 shadow-sm text-center p-4">
+                                <div class="card-body">
+                                    <div class="icon-wrapper bg-primary bg-opacity-10 text-primary rounded-circle mx-auto mb-4">
+                                        <i class="fas fa-phone"></i>
+                                    </div>
+                                    <h5 class="fw-bold">Phone</h5>
+                                    <p class="text-muted mb-0">+62 812-3456-7890</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                            <div class="card h-100 border-0 shadow-sm text-center p-4">
+                                <div class="card-body">
+                                    <div class="icon-wrapper bg-primary bg-opacity-10 text-primary rounded-circle mx-auto mb-4">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                    </div>
+                                    <h5 class="fw-bold">Location</h5>
+                                    <p class="text-muted mb-0">Jakarta, Indonesia</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
+
+    <style>
+    /* Contact Section Styles */
+    #contact {
+        overflow: hidden;
+    }
+
+    #contact .card {
+        transition: all 0.3s ease;
+    }
+
+    #contact .card:hover {
+        transform: translateY(-5px);
+    }
+
+    .form-floating > .form-control,
+    .form-floating > .form-select {
+        height: calc(3.5rem + 2px);
+        padding: 1rem 0.75rem;
+    }
+
+    .form-floating > textarea.form-control {
+        height: 150px;
+        resize: none;
+    }
+
+    .form-floating > label {
+        padding: 1rem 0.75rem;
+    }
+
+    .icon-wrapper {
+        width: 60px;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+    }
+
+    .btn-primary {
+        transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(var(--primary-rgb), 0.2);
+    }
+    </style>
+
+    <script>
+    // Form Validation
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('contactForm');
+        
+        form.addEventListener('submit', function(event) {
+            if (!form.checkValidity()) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            form.classList.add('was-validated');
+        });
+    });
+    </script>
+    <?php get_footer(); ?>
 </div>
 
 <style>
