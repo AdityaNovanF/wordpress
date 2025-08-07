@@ -37,7 +37,7 @@ get_header();
 <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-white shadow-sm py-0" style="top: var(--wp-admin--admin-bar--height, 0);">
     <div class="container h-100">
         <a class="navbar-brand fw-bold fs-4 py-0" href="<?php echo home_url('/'); ?>">
-            <span class="text-primary" style="font-size: 24px;">Spanish</span><span style="font-size: 24px;">Talking</span>
+            <span class="text-primary">Spanish</span>Talking.com
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -45,17 +45,25 @@ get_header();
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto align-items-center">
                 <li class="nav-item">
-                    <a class="nav-link" href="<?php echo home_url('/#courses'); ?>">Courses</a>
+                    <a class="nav-link" href="<?php echo home_url('/'); ?>#home">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?php echo home_url('/#method'); ?>">Method</a>
+                    <a class="nav-link" href="<?php echo home_url('/'); ?>#blog">Blog</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?php echo home_url('/#testimonials'); ?>">Reviews</a>
+                    <a class="nav-link" href="https://youtube.com" target="_blank">YouTube</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?php echo home_url('/'); ?>#contact">Contact</a>
                 </li>
                 <li class="nav-item ms-lg-3">
-                    <a href="<?php echo home_url('/#pricing'); ?>" class="btn btn-primary rounded-pill px-4">
-                        Start Learning
+                    <a href="https://youtube.com" target="_blank" class="btn btn-outline-primary btn-sm rounded-pill px-3 me-2">
+                        <i class="fab fa-youtube me-1"></i> Watch on YouTube
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#blog" class="btn btn-primary btn-sm rounded-pill px-3">
+                        Read the Blog
                     </a>
                 </li>
             </ul>
@@ -408,9 +416,25 @@ get_header();
 
 <style>
 /* Article Styles */
+:root {
+    --primary: #4461F2;
+    --primary-rgb: 68, 97, 242;
+    --navbar-height: 56px;
+}
+
 .article-hero {
-    padding-top: calc(2rem + var(--wp-admin--admin-bar--height, 0px));
-    background: linear-gradient(to bottom, #f8f9fa, #ffffff);
+    padding-top: calc(var(--navbar-height) + var(--wp-admin--admin-bar--height, 0px));
+    background: linear-gradient(135deg, 
+        #4461F2 0%, 
+        #6C63FF 50%, 
+        #7C4DFF 100%
+    );
+    position: relative;
+    overflow: hidden;
+    color: white;
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
 }
 
 .article-content {
@@ -424,6 +448,11 @@ get_header();
     position: relative;
     margin-top: -4rem;
     transition: all 0.3s ease;
+    max-width: 1200px;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    background: linear-gradient(to bottom, #ffffff, #f8f9fa);
 }
 
 .article-content:hover {
@@ -778,9 +807,13 @@ get_header();
 .navbar-brand,
 .nav-link,
 .navbar .btn {
-    line-height: var(--navbar-height);
-    padding-top: 0 !important;
-    padding-bottom: 0 !important;
+    line-height: normal;
+    padding: 0.5rem 1.25rem !important;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    margin: 9px 0;
+    font-size: 0.95rem;
 }
 
 .navbar.scrolled {
@@ -1151,6 +1184,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
-<?php
-get_footer();
-?>
+
+
+<?php get_footer(); ?>
