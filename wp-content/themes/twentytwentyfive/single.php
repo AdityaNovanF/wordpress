@@ -101,19 +101,19 @@ get_header();
                             <div class="d-flex align-items-center me-4">
                                 <?php echo get_avatar(get_the_author_meta('ID'), 40, '', '', array('class' => 'rounded-circle me-2')); ?>
                                 <div>
-                                    <small class="d-block">Ditulis oleh</small>
-                                    <span class="fw-medium"><?php the_author(); ?></span>
+                                    <small class="d-block text-dark">Written by</small>
+                                    <span class="fw-medium text-dark"><?php the_author(); ?></span>
                                 </div>
                             </div>
                             <!-- Date -->
                             <div class="me-4">
-                                <small class="d-block">Published on</small>
-                                <span class="fw-medium"><?php echo get_the_date('j F Y'); ?></span>
+                                <small class="d-block text-dark">Published on</small>
+                                <span class="fw-medium text-dark"><?php echo get_the_date('j F Y'); ?></span>
                             </div>
                             <!-- Reading Time -->
                             <div>
-                                <small class="d-block">Reading Time</small>
-                                <span class="fw-medium">
+                                <small class="d-block text-dark">Reading Time</small>
+                                <span class="fw-medium text-dark">
                                     <?php
                                     $content = get_post_field('post_content', get_the_ID());
                                     $word_count = str_word_count(strip_tags($content));
@@ -233,7 +233,7 @@ get_header();
             <div class="container-fluid px-4 px-lg-5">
                 <div class="row">
                     <div class="col-12">
-                        <h3 class="mb-4 text-center">Artikel Terkait</h3>
+                        <h3 class="mb-4 text-center">Related Articles</h3>
                         <div class="row g-4">
                             <?php
                             $categories = get_the_category();
@@ -352,6 +352,7 @@ get_header();
                                                     </div>',
                                         ),
                                         'class_submit' => 'btn btn-primary rounded-pill px-4',
+                                        'submit_button' => '<button name="%1$s" type="submit" id="%2$s" class="%3$s"><i class="fas fa-paper-plane me-2"></i>Submit Comment</button>',
                                         'submit_field' => '<div class="form-submit mt-4">%1$s %2$s</div>',
                                     );
                                     comment_form($comments_args);
@@ -420,14 +421,22 @@ get_header();
     --primary: #4461F2;
     --primary-rgb: 68, 97, 242;
     --navbar-height: 56px;
+    --gradient-1: linear-gradient(135deg, #4461F2 0%, #6C63FF 100%);
+    --gradient-2: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
+    --dark: #2B2B2B;
+    --light: #F8F9FD;
+    --transition: all 0.3s ease;
+    --card-shadow: 0 8px 30px rgba(0,0,0,0.05);
+    --hover-shadow: 0 15px 40px rgba(68,97,242,0.1);
 }
 
 .article-hero {
     padding-top: calc(var(--navbar-height) + var(--wp-admin--admin-bar--height, 0px));
     background: linear-gradient(135deg, 
-        #4461F2 0%, 
-        #6C63FF 50%, 
-        #7C4DFF 100%
+        #2D31FA 0%, 
+        #5D69FF 35%, 
+        #7C4DFF 65%, 
+        #AB4DFF 100%
     );
     position: relative;
     overflow: hidden;
@@ -435,6 +444,51 @@ get_header();
     min-height: 60vh;
     display: flex;
     align-items: center;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15);
+}
+
+.article-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg,
+        rgba(255, 255, 255, 0.1) 0%,
+        rgba(255, 255, 255, 0.05) 50%,
+        rgba(255, 255, 255, 0) 100%
+    );
+}
+
+.article-hero::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    right: -50%;
+    bottom: -50%;
+    background: radial-gradient(circle, 
+        rgba(255, 255, 255, 0.08) 0%, 
+        rgba(255, 255, 255, 0) 70%
+    );
+    pointer-events: none;
+    mix-blend-mode: overlay;
+}
+
+.article-hero .badge {
+    background: rgba(255,255,255,0.2);
+    color: white;
+    border: none;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    padding: 0.8em 1.5em;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    border: 1px solid rgba(255,255,255,0.2);
+    transition: all 0.3s ease;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
 }
 
 .article-content {
@@ -442,9 +496,9 @@ get_header();
     line-height: 1.8;
     color: var(--dark);
     background: white;
-    border-radius: 1.5rem;
-    padding: 3rem;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.03);
+    border-radius: 2rem;
+    padding: 3.5rem;
+    box-shadow: 0 15px 50px rgba(68, 97, 242, 0.08);
     position: relative;
     margin-top: -4rem;
     transition: all 0.3s ease;
@@ -452,7 +506,7 @@ get_header();
     width: 90%;
     margin-left: auto;
     margin-right: auto;
-    background: linear-gradient(to bottom, #ffffff, #f8f9fa);
+    border: 1px solid rgba(68, 97, 242, 0.1);
 }
 
 .article-content:hover {
@@ -585,6 +639,21 @@ get_header();
 .related-articles {
     position: relative;
     z-index: 1;
+    background: #F8F9FD;
+    overflow: hidden;
+}
+
+.related-articles::before {
+    content: '';
+    position: absolute;
+    width: 800px;
+    height: 800px;
+    background: rgba(68, 97, 242, 0.15);
+    border-radius: 50%;
+    top: -400px;
+    right: -200px;
+    filter: blur(60px);
+    z-index: 0;
 }
 
 .related-articles .card-link {
@@ -804,16 +873,40 @@ get_header();
     padding: 0;
 }
 
-.navbar-brand,
-.nav-link,
+.navbar-brand {
+    font-size: 1.5rem;
+    padding: 0;
+    height: var(--navbar-height);
+    display: flex;
+    align-items: center;
+}
+
+.nav-link {
+    font-weight: 500;
+    padding: 0 1rem;
+    height: var(--navbar-height);
+    display: flex;
+    align-items: center;
+    color: var(--dark);
+}
+
 .navbar .btn {
-    line-height: normal;
-    padding: 0.5rem 1.25rem !important;
+    padding: 0.5rem 1.25rem;
     height: 38px;
     display: flex;
     align-items: center;
-    margin: 9px 0;
     font-size: 0.95rem;
+    margin: 9px 0;
+}
+
+.navbar .btn-light {
+    background: #f8f9fa;
+    border-color: #f0f0f0;
+}
+
+.navbar .btn-primary {
+    background: var(--primary);
+    border: none;
 }
 
 .navbar.scrolled {
@@ -856,59 +949,53 @@ body {
 
 .article-hero {
     position: relative;
-    color: white;
+    color: #2D3748;
     overflow: hidden;
     padding: 8rem 0 6rem;
-    background: linear-gradient(135deg, 
-        #2D31FA 0%, 
-        #5D69FF 35%, 
-        #7C4DFF 65%, 
-        #AB4DFF 100%
-    );
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15);
+    background: #F8F9FD;
+    min-height: 70vh;
 }
 
 .article-hero::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(135deg,
-        rgba(255, 255, 255, 0.1) 0%,
-        rgba(255, 255, 255, 0.05) 50%,
-        rgba(255, 255, 255, 0) 100%
-    );
+    width: 600px;
+    height: 600px;
+    background: rgba(68, 97, 242, 0.15);
+    border-radius: 50%;
+    top: -200px;
+    right: -200px;
+    animation: float 15s ease-in-out infinite;
+    filter: blur(60px);
+    z-index: 0;
 }
 
 .article-hero::after {
     content: '';
     position: absolute;
-    top: -50%;
-    left: -50%;
-    right: -50%;
-    bottom: -50%;
-    background: radial-gradient(circle, 
-        rgba(255, 255, 255, 0.08) 0%, 
-        rgba(255, 255, 255, 0) 70%
-    );
-    pointer-events: none;
-    mix-blend-mode: overlay;
+    width: 500px;
+    height: 500px;
+    background: rgba(108, 99, 255, 0.15);
+    border-radius: 50%;
+    bottom: -200px;
+    left: -100px;
+    animation: float 20s ease-in-out infinite reverse;
+    filter: blur(60px);
+    z-index: 0;
 }
 
-@keyframes gradientMove {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+@keyframes float {
+    0% { transform: translate(0, 0); }
+    25% { transform: translate(40px, -40px); }
+    50% { transform: translate(80px, 0); }
+    75% { transform: translate(40px, 40px); }
+    100% { transform: translate(0, 0); }
 }
 
-@keyframes patternFloat {
-    0% { transform: translateY(0) translateX(0); }
-    25% { transform: translateY(-5px) translateX(5px); }
-    50% { transform: translateY(0) translateX(0); }
-    75% { transform: translateY(5px) translateX(-5px); }
-    100% { transform: translateY(0) translateX(0); }
+@keyframes heroGlow {
+    0% { filter: brightness(1) saturate(1); }
+    50% { filter: brightness(1.1) saturate(1.2); }
+    100% { filter: brightness(1) saturate(1); }
 }
 
 @keyframes glowPulse {
@@ -918,19 +1005,16 @@ body {
 }
 
 .article-hero .badge {
-    background: rgba(255,255,255,0.2);
-    color: white;
+    background: rgba(68, 97, 242, 0.1);
+    color: var(--primary);
     border: none;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
     padding: 0.8em 1.5em;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 1.5px;
-    border: 1px solid rgba(255,255,255,0.2);
+    letter-spacing: 1px;
+    border-radius: 100px;
     transition: all 0.3s ease;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 15px rgba(68, 97, 242, 0.1);
 }
 
 .article-hero .badge:hover {
@@ -939,12 +1023,12 @@ body {
 }
 
 .article-hero h1 {
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
     font-size: 3.5rem;
     line-height: 1.2;
     margin-bottom: 1.5rem;
     position: relative;
-    -webkit-text-stroke: 1px rgba(255,255,255,0.1);
+    color: #2D3748;
+    font-weight: 700;
     letter-spacing: -0.02em;
 }
 
@@ -965,16 +1049,15 @@ body {
 }
 
 .article-hero .meta-info {
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    background: rgba(255,255,255,0.15);
+    background: rgba(255, 255, 255, 0.95);
     border-radius: 1rem;
     padding: 1.5rem;
-    border: 1px solid rgba(255,255,255,0.2);
+    border: 1px solid rgba(68, 97, 242, 0.1);
     margin-top: 2rem;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    box-shadow: 0 8px 32px rgba(68, 97, 242, 0.08);
     transform: translateY(0);
     transition: all 0.3s ease;
+    color: #2D3748;
 }
 
 /* Author Meta Info */
@@ -989,13 +1072,14 @@ body {
 }
 
 .article-hero .meta-info small {
-    opacity: 0.8;
+    color: #4A5568;
     font-size: 0.85rem;
+    font-weight: 500;
 }
 
 .article-hero .meta-info .fw-medium {
-    color: white;
-    font-weight: 500;
+    color: #2D3748;
+    font-weight: 600;
 }
 
 .article-hero .meta-info:hover {
@@ -1107,13 +1191,178 @@ body {
 /* Comments Section Styles */
 .comments-section {
     background: linear-gradient(to bottom, #ffffff, #f8f9fa);
+    position: relative;
+}
+
+.comments-section .comment-card {
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(68, 97, 242, 0.1);
+    transition: all 0.3s ease;
+}
+
+.comments-section .section-title {
+    color: #2D3748;
+    font-weight: 700;
+    position: relative;
+    padding-bottom: 1rem;
+    margin-bottom: 2rem;
+}
+
+.comments-section .section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(to right, var(--primary), transparent);
+    border-radius: 2px;
+}
+
+.comments-section .comment-item {
+    transition: all 0.3s ease;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    background: rgba(248, 249, 253, 0.5);
+    border: 1px solid rgba(68, 97, 242, 0.08);
+}
+
+.comments-section .comment-item:hover {
+    transform: translateY(-2px);
+    background: rgba(248, 249, 253, 0.8);
+    box-shadow: 0 8px 24px rgba(68, 97, 242, 0.08);
+}
+
+.comments-section .comment-meta h6 {
+    color: #2D3748;
+}
+
+.comments-section .comment-content {
+    color: #4A5568;
+    line-height: 1.7;
 }
 
 .comment-form textarea.form-control,
 .comment-form input.form-control {
-    border: 1px solid #dee2e6;
-    padding: 0.75rem;
+    border: 1px solid rgba(68, 97, 242, 0.1);
+    padding: 1rem;
     transition: all 0.3s ease;
+    background: rgba(248, 249, 253, 0.5);
+    border-radius: 0.75rem;
+}
+
+.comment-form textarea.form-control:focus,
+.comment-form input.form-control:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(68, 97, 242, 0.1);
+    background: white;
+}
+
+.comment-form .form-label {
+    font-weight: 600;
+    color: #2D3748;
+    margin-bottom: 0.75rem;
+}
+
+.comment-form .btn-primary {
+    padding: 0.75rem 2rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+}
+
+.comment-form .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(68, 97, 242, 0.2);
+}
+
+.hover-primary:hover {
+    background: var(--primary) !important;
+    color: white !important;
+    border-color: var(--primary) !important;
+}
+
+.form-check-input:checked {
+    background-color: var(--primary);
+    border-color: var(--primary);
+}
+
+.comment-respond {
+    position: relative;
+    padding: 2rem;
+    background: rgba(248, 249, 253, 0.8);
+    border-radius: 1rem;
+    border: 1px solid rgba(68, 97, 242, 0.08);
+    margin-top: 2rem;
+}
+
+/* Modal Styles */
+.modal-content {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fd 100%);
+}
+
+#commentSuccessModal .modal-body {
+    position: relative;
+    overflow: hidden;
+}
+
+#commentSuccessModal .modal-body::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(68, 97, 242, 0.05) 0%, rgba(68, 97, 242, 0) 70%);
+    animation: rotate 20s linear infinite;
+}
+
+#commentSuccessModal .fa-check-circle {
+    color: #10B981;
+    filter: drop-shadow(0 4px 12px rgba(16, 185, 129, 0.2));
+    animation: scaleIn 0.5s ease-out;
+}
+
+#commentSuccessModal .modal-title {
+    color: #2D3748;
+    font-weight: 700;
+}
+
+#commentSuccessModal .btn-primary {
+    transition: all 0.3s ease;
+}
+
+#commentSuccessModal .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(68, 97, 242, 0.2);
+}
+
+@keyframes scaleIn {
+    from {
+        transform: scale(0);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Loading Spinner */
+.spinner-border-sm {
+    width: 1rem;
+    height: 1rem;
+    border-width: 0.15em;
 }
 
 .comment-form textarea.form-control:focus,
@@ -1169,6 +1418,24 @@ body {
 }
 </style>
 
+<!-- Success Modal -->
+<div class="modal fade" id="commentSuccessModal" tabindex="-1" aria-labelledby="commentSuccessModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg rounded-4">
+            <div class="modal-body p-5 text-center">
+                <div class="mb-4">
+                    <i class="fas fa-check-circle text-success" style="font-size: 4rem;"></i>
+                </div>
+                <h4 class="modal-title mb-3" id="commentSuccessModalLabel">Thank You!</h4>
+                <p class="text-muted mb-4">Your comment has been successfully submitted and is awaiting moderation.</p>
+                <button type="button" class="btn btn-primary px-4 py-2 rounded-pill" data-bs-dismiss="modal">
+                    <i class="fas fa-times me-2"></i>Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Navbar Scroll Effect -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
@@ -1181,6 +1448,51 @@ document.addEventListener('DOMContentLoaded', function() {
             navbar.classList.remove('scrolled');
         }
     });
+
+    // Comment Form Submit Handler
+    const commentForm = document.querySelector('.comment-form');
+    if (commentForm) {
+        commentForm.addEventListener('submit', function(e) {
+            const formData = new FormData(this);
+            const submitButton = this.querySelector('button[type="submit"]');
+            
+            // Store original button text
+            const originalButtonText = submitButton.innerHTML;
+            
+            // Show loading state
+            submitButton.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Sending...';
+            submitButton.disabled = true;
+
+            fetch(this.action, {
+                method: 'POST',
+                body: formData,
+                credentials: 'same-origin'
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Show success modal
+                    const successModal = new bootstrap.Modal(document.getElementById('commentSuccessModal'));
+                    successModal.show();
+                    
+                    // Reset form
+                    this.reset();
+                } else {
+                    throw new Error('Comment submission failed');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Sorry, there was an error submitting your comment. Please try again.');
+            })
+            .finally(() => {
+                // Restore button state
+                submitButton.innerHTML = originalButtonText;
+                submitButton.disabled = false;
+            });
+
+            e.preventDefault();
+        });
+    }
 });
 </script>
 

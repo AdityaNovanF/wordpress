@@ -301,16 +301,40 @@ get_header(); ?>
             padding: 0;
         }
 
-        .navbar-brand,
+        .navbar-brand {
+            font-size: 1.5rem;
+            padding: 0;
+            height: var(--navbar-height);
+            display: flex;
+            align-items: center;
+        }
+
         .nav-link {
-            line-height: var(--navbar-height);
-            padding-top: 0 !important;
-            padding-bottom: 0 !important;
+            font-weight: 500;
+            padding: 0 1rem;
+            height: var(--navbar-height);
+            display: flex;
+            align-items: center;
+            color: var(--dark);
         }
         
         .navbar .btn {
-            margin-top: 14px;
-            margin-bottom: 14px;
+            padding: 0.5rem 1.25rem;
+            height: 38px;
+            display: flex;
+            align-items: center;
+            font-size: 0.95rem;
+            margin: 9px 0;
+        }
+        
+        .navbar .btn-light {
+            background: #f8f9fa;
+            border-color: #f0f0f0;
+        }
+        
+        .navbar .btn-primary {
+            background: var(--primary);
+            border: none;
         }
 
         .navbar.scrolled {
@@ -439,6 +463,51 @@ get_header(); ?>
     </section>
     
     <style>
+    /* Navbar Styles */
+    :root {
+        --navbar-height: 56px;
+    }
+    
+    .navbar {
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        background-color: rgba(255, 255, 255, 0.9) !important;
+        transition: all 0.3s ease;
+        height: var(--navbar-height);
+        min-height: auto;
+        padding: 0;
+    }
+
+    .navbar-brand {
+        font-size: 1.5rem;
+        color: var(--dark);
+        padding: 0;
+        height: var(--navbar-height);
+        display: flex;
+        align-items: center;
+    }
+
+    .nav-link {
+        color: var(--dark);
+        font-weight: 500;
+        padding: 0 1rem;
+        height: var(--navbar-height);
+        display: flex;
+        align-items: center;
+    }
+
+    .navbar .btn {
+        padding: 0.5rem 1.25rem;
+        height: 38px;
+        display: flex;
+        align-items: center;
+        font-size: 0.95rem;
+    }
+
+    .navbar.scrolled {
+        box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    }
+
     /* Enhanced smooth scroll behavior */
     html {
         scroll-behavior: smooth;
@@ -944,9 +1013,16 @@ get_header(); ?>
                     <p class="lead mb-5">Join our email list and get short, useful Spanish lessons directly in your inbox.</p>
                     <form class="newsletter-form">
                         <div class="input-group input-group-lg mb-3">
-                            <input type="email" class="form-control rounded-pill-start" placeholder="Enter your email address">
-                            <button class="btn btn-primary rounded-pill-end px-4" type="submit">Subscribe</button>
+                            <input type="email" class="form-control rounded-pill-start newsletter-input" placeholder="Enter your email address" style="background-color: #e9ecef; color: #212529; box-shadow: 0 4px 16px rgba(0,0,0,0.12); font-weight: 500;">
+                            <button class="btn btn-primary rounded-pill-end px-4" type="submit" style="box-shadow: 0 4px 16px rgba(13,110,253,0.15);">Subscribe</button>
                         </div>
+                        <style>
+                        .newsletter-input::placeholder {
+                            color: #343a40 !important;
+                            opacity: 1;
+                            font-weight: 500;
+                        }
+                        </style>
                         <small class="text-dark">By subscribing, you agree to receive our newsletter. No spam, ever.</small>
                     </form>
                 </div>
@@ -1003,7 +1079,7 @@ get_header(); ?>
                                                 <option value="general-question">General Question</option>
                                                 <option value="other">Other</option>
                                             </select>
-                                            <label for="subject">Subject</label>
+                                            
                                             <div class="invalid-feedback">Please select a subject.</div>
                                         </div>
                                     </div>
