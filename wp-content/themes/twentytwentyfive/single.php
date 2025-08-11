@@ -13,6 +13,9 @@ function enqueue_single_post_assets() {
     // Google Fonts
     wp_enqueue_style('google-fonts', 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
     
+    // Single Post CSS
+    wp_enqueue_style('single-post', get_template_directory_uri() . '/assets/css/single-post.css');
+    
     // AOS animation
     wp_enqueue_style('aos-css', 'https://unpkg.com/aos@2.3.1/dist/aos.css');
     wp_enqueue_script('aos-js', 'https://unpkg.com/aos@2.3.1/dist/aos.js', array(), null, true);
@@ -135,22 +138,22 @@ get_header();
                             <h5 class="mb-3">Share Article:</h5>
                             <div class="d-flex gap-2">
                                 <a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode(get_permalink()); ?>" 
-                                   class="btn btn-primary" 
+                                   class="btn btn-facebook" 
                                    target="_blank">
                                     <i class="fab fa-facebook-f"></i>
                                 </a>
                                 <a href="https://twitter.com/intent/tweet?url=<?php echo urlencode(get_permalink()); ?>&text=<?php echo urlencode(get_the_title()); ?>" 
-                                   class="btn btn-info text-white" 
+                                   class="btn btn-twitter" 
                                    target="_blank">
                                     <i class="fab fa-twitter"></i>
                                 </a>
                                 <a href="https://wa.me/?text=<?php echo urlencode(get_the_title() . ' ' . get_permalink()); ?>" 
-                                   class="btn btn-success" 
+                                   class="btn btn-whatsapp" 
                                    target="_blank">
                                     <i class="fab fa-whatsapp"></i>
                                 </a>
                                 <a href="https://www.linkedin.com/shareArticle?mini=true&url=<?php echo urlencode(get_permalink()); ?>" 
-                                   class="btn btn-primary" 
+                                   class="btn btn-linkedin" 
                                    target="_blank">
                                     <i class="fab fa-linkedin-in"></i>
                                 </a>
@@ -382,13 +385,22 @@ get_header();
 <style>
 /* Article Styles */
 :root {
-    --primary: #4461F2;
-    --primary-rgb: 68, 97, 242;
+    --spanish-red: #DE0000;
+    --spanish-yellow: #FFB200;
+    --spanish-red-rgb: 222, 0, 0;
+    --spanish-yellow-rgb: 255, 178, 0;
     --navbar-height: 56px;
-    --gradient-1: linear-gradient(135deg, #4461F2 0%, #6C63FF 100%);
-    --gradient-2: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
+    --gradient-spanish: linear-gradient(135deg, var(--spanish-red) 0%, #FF0000 100%);
+    --gradient-yellow: linear-gradient(135deg, var(--spanish-yellow) 0%, #FFC400 100%);
     --dark: #2B2B2B;
     --light: #F8F9FD;
+
+    /* Custom Colors */
+    --bg-red-light: #fff5f5;
+    --bg-yellow-light: #fff8e6;
+    --text-dark: #2D3748;
+    --text-muted: #718096;
+}
     --transition: all 0.3s ease;
     --card-shadow: 0 8px 30px rgba(0,0,0,0.05);
     --hover-shadow: 0 15px 40px rgba(68,97,242,0.1);
@@ -397,10 +409,10 @@ get_header();
 .article-hero {
     padding-top: calc(var(--navbar-height) + var(--wp-admin--admin-bar--height, 0px));
     background: linear-gradient(135deg, 
-        #2D31FA 0%, 
-        #5D69FF 35%, 
-        #7C4DFF 65%, 
-        #AB4DFF 100%
+        #DE0000 0%, 
+        #FF0000 35%, 
+        #FFB200 65%, 
+        #FFC400 100%
     );
     position: relative;
     overflow: hidden;
@@ -441,8 +453,8 @@ get_header();
 }
 
 .article-hero .badge {
-    background: rgba(255,255,255,0.2);
-    color: white;
+    background: rgba(255, 178, 0, 0.2);
+    color: #FFB200;
     border: none;
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
@@ -450,9 +462,8 @@ get_header();
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 1.5px;
-    border: 1px solid rgba(255,255,255,0.2);
+    border: 1px solid rgba(255, 178, 0, 0.3);
     transition: all 0.3s ease;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
 }
 
 .article-content {
@@ -462,7 +473,7 @@ get_header();
     background: white;
     border-radius: 2rem;
     padding: 3.5rem;
-    box-shadow: 0 15px 50px rgba(68, 97, 242, 0.08);
+    box-shadow: 0 15px 50px rgba(222, 0, 0, 0.08);
     position: relative;
     margin-top: -4rem;
     transition: all 0.3s ease;
@@ -470,7 +481,7 @@ get_header();
     width: 90%;
     margin-left: auto;
     margin-right: auto;
-    border: 1px solid rgba(68, 97, 242, 0.1);
+    border: 1px solid rgba(222, 0, 0, 0.1);
 }
 
 .article-content:hover {
@@ -511,11 +522,13 @@ get_header();
 
 .article-content img {
     max-width: 100%;
+    width: auto;
     height: auto;
     border-radius: 1rem;
-    margin: 2.5rem 0;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    margin: 2.5rem auto;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.1);
     transition: all 0.3s ease;
+    display: block;
 }
 
 .article-content img:hover {
@@ -724,6 +737,33 @@ get_header();
     align-items: center;
     justify-content: center;
     border-radius: 50%;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.share-section .btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.share-section .btn-facebook {
+    background: #DE0000;
+    color: white;
+}
+
+.share-section .btn-twitter {
+    background: #FFB200;
+    color: #DE0000;
+}
+
+.share-section .btn-whatsapp {
+    background: #DE0000;
+    color: white;
+}
+
+.share-section .btn-linkedin {
+    background: #FFB200;
+    color: #DE0000;
 }
 
 /* Author Box */
@@ -840,11 +880,11 @@ body {
 
 /* Custom Variables */
 :root {
-    --primary: #4461F2;
-    --secondary: #6c757d;
-    --accent: #FF6B6B;
-    --gradient-1: linear-gradient(135deg, #4461F2 0%, #6C63FF 100%);
-    --gradient-2: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
+    --primary: #DE0000;
+    --secondary: #FFB200;
+    --accent: #DE0000;
+    --gradient-1: linear-gradient(135deg, #DE0000 0%, #FFB200 100%);
+    --gradient-2: linear-gradient(135deg, #FFB200 0%, #DE0000 100%);
     --dark: #2B2B2B;
     --light: #F8F9FD;
     --author-online: #22c55e;
@@ -860,11 +900,14 @@ body {
 
 .article-hero {
     position: relative;
-    color: #2D3748;
+    color: var(--text-dark);
     overflow: hidden;
     padding: 8rem 0 6rem;
-    background: #F8F9FD;
+    background: linear-gradient(135deg, rgba(222, 0, 0, 0.03) 0%, rgba(255, 178, 0, 0.03) 100%);
     min-height: 70vh;
+    display: flex;
+    align-items: center;
+    margin-bottom: 2rem;
 }
 
 .article-hero::before {
@@ -872,7 +915,7 @@ body {
     position: absolute;
     width: 600px;
     height: 600px;
-    background: rgba(68, 97, 242, 0.15);
+    background: rgba(222, 0, 0, 0.15);
     border-radius: 50%;
     top: -200px;
     right: -200px;
@@ -886,7 +929,7 @@ body {
     position: absolute;
     width: 500px;
     height: 500px;
-    background: rgba(108, 99, 255, 0.15);
+    background: rgba(255, 178, 0, 0.15);
     border-radius: 50%;
     bottom: -200px;
     left: -100px;
@@ -916,7 +959,7 @@ body {
 }
 
 .article-hero .badge {
-    background: rgba(68, 97, 242, 0.1);
+    background: rgba(222, 0, 0, 0.1);
     color: var(--primary);
     border: none;
     padding: 0.8em 1.5em;
@@ -925,7 +968,7 @@ body {
     letter-spacing: 1px;
     border-radius: 100px;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(68, 97, 242, 0.1);
+    box-shadow: 0 4px 15px rgba(222, 0, 0, 0.1);
 }
 
 .article-hero .badge:hover {
@@ -1012,9 +1055,10 @@ body {
 }
 
 .related-articles {
-    background: white;
+    background: #fff5f5;
     position: relative;
     overflow: hidden;
+    padding: 6rem 0;
 }
 
 .related-articles::before {
@@ -1024,10 +1068,29 @@ body {
     left: 0;
     right: 0;
     height: 300px;
-    background: var(--gradient-1);
+    background: linear-gradient(135deg, #DE0000 0%, #FFB200 100%);
     transform: skewY(-6deg);
     transform-origin: top right;
     z-index: 0;
+}
+
+.related-articles h3 {
+    color: var(--primary);
+    position: relative;
+    display: inline-block;
+    margin-bottom: 3rem;
+}
+
+.related-articles h3::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 3px;
+    background: var(--gradient-2);
+    border-radius: 2px;
 }
 
 .related-articles .container-fluid {
@@ -1313,6 +1376,29 @@ body {
     color: white;
 }
 
+/* Featured Image Styles */
+.featured-image-wrapper {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto 3rem;
+    position: relative;
+    overflow: hidden;
+    border-radius: 1.5rem;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+
+.featured-image {
+    width: 100%;
+    height: auto;
+    max-height: 600px;
+    object-fit: cover;
+    transition: all 0.5s ease;
+}
+
+.featured-image:hover {
+    transform: scale(1.02);
+}
+
 /* Helper Classes */
 .min-vh-75 {
     min-height: 75vh;
@@ -1414,5 +1500,4 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <?php
 get_template_part('template-parts/footer/footer');
-get_footer();
 ?>

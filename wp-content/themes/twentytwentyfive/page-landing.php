@@ -4,22 +4,59 @@
  * Description: A clean HTML landing page template for Spanish Learning Platform
  */
 
-get_header(); ?>
+// Enqueue assets
+function enqueue_landing_page_assets() {
+    // Bootstrap CSS
+    wp_enqueue_style('bootstrap-css', 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css');
+    
+    // Bootstrap JS
+    wp_enqueue_script('bootstrap-bundle', 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js', array('jquery'), null, true);
+    
+    // Font Awesome
+    wp_enqueue_style('font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css');
+    
+    // Google Fonts
+    wp_enqueue_style('google-fonts', 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+    
+    // AOS animation
+    wp_enqueue_style('aos-css', 'https://unpkg.com/aos@2.3.1/dist/aos.css');
+    wp_enqueue_script('aos-js', 'https://unpkg.com/aos@2.3.1/dist/aos.js', array(), null, true);
+    
+    // Theme styles
+    wp_enqueue_style('spanish-theme', get_template_directory_uri() . '/assets/css/spanish-theme.css');
+    wp_enqueue_style('landing-page', get_template_directory_uri() . '/assets/css/landing-page.css');
+    
+    // Initialize AOS
+    wp_add_inline_script('aos-js', "
+        document.addEventListener('DOMContentLoaded', function() {
+            AOS.init({
+                duration: 800,
+                once: true,
+                offset: 100
+            });
+        });
+    ");
+}
+add_action('wp_enqueue_scripts', 'enqueue_landing_page_assets');
+
+get_header();
+?>
+
+<?php get_template_part('template-parts/header/navbar'); ?>
 
 <main>
     <!-- Hero Section -->
-    <section>
-        <h1>Ready to Speak Spanish</h1>
-        <p>Join thousands of learners following our simple, friendly, and practical Spanish lessons — no pressure, just progress.</p>
-        <div>
-            <a href="#get-started">Start Learning Now</a>
-            <a href="https://youtube.com">Visit YouTube Channel</a>
-        </div>
+    <section class="hero-section position-relative overflow-hidden bg-light py-6" style="min-height: 100vh;">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6" data-aos="fade-up">
+                    <h1 class="display-3 fw-bold mb-4 text-dark">Ready to Speak <span style="color: #FF0000;">Spanish</span></h1>
+                    <p class="lead mb-4 text-secondary">Join thousands of learners following our simple, friendly, and practical Spanish lessons — no pressure, just progress.</p>
                     <div class="d-flex flex-wrap gap-3">
-                        <a href="#get-started" class="btn btn-primary btn-lg rounded-pill">
+                        <a href="#get-started" class="btn btn-danger btn-lg rounded-pill" style="background-color: #FF0000;">
                             <i class="fas fa-play-circle me-2"></i>Start Learning Now
                         </a>
-                        <a href="https://youtube.com" target="_blank" class="btn btn-outline-primary btn-lg rounded-pill">
+                        <a href="https://youtube.com" target="_blank" class="btn btn-outline-danger btn-lg rounded-pill" style="border-color: #FF0000; color: #FF0000;">
                             <i class="fab fa-youtube me-2"></i>Visit Our YouTube Channel
                         </a>
                     </div>
@@ -47,14 +84,12 @@ get_header(); ?>
                 <div class="col-lg-6" data-aos="fade-up">
                     <div class="position-relative mt-5 mt-lg-0">
                         <!-- Background Shapes -->
-                        <div class="position-absolute top-50 start-50 translate-middle w-100 h-100">
-                            <div class="position-absolute top-0 end-0 bg-primary opacity-10 rounded-circle" 
-                                 style="width: 300px; height: 300px; filter: blur(40px); transform: translate(20%, -20%);"></div>
-                            <div class="position-absolute bottom-0 start-0 bg-info opacity-10 rounded-circle" 
-                                 style="width: 200px; height: 200px; filter: blur(40px); transform: translate(-20%, 20%);"></div>
-                        </div>
-                        
-                        <!-- Main Image -->
+        <div class="position-absolute top-50 start-50 translate-middle w-100 h-100">
+            <div class="position-absolute top-0 end-0 rounded-circle" 
+                 style="width: 300px; height: 300px; filter: blur(40px); transform: translate(20%, -20%); background-color: rgba(255, 0, 0, 0.1);"></div>
+            <div class="position-absolute bottom-0 start-0 rounded-circle" 
+                 style="width: 200px; height: 200px; filter: blur(40px); transform: translate(-20%, 20%); background-color: rgba(255, 196, 0, 0.1);"></div>
+        </div>                        <!-- Main Image -->
                         <div class="position-relative" data-aos="fade-up">
                             <img src="<?php echo esc_url(get_theme_file_uri('assets/hero-image.jpg')); ?>" 
                                  alt="Learn Spanish through stories" 
@@ -97,27 +132,94 @@ get_header(); ?>
     
 
     <!-- Testimonials Section -->
-    <section id="testimonials">
-        <h2>What Our Viewers Say</h2>
-        <div>
-            <article>
-                <p>"SpanishTalking helped me speak basic Spanish in just a few weeks!"</p>
-                <footer>
-                    <strong>Liam</strong> from UK
-                </footer>
-            </article>
-            <article>
-                <p>"I love how casual and real the videos are. Not boring like school."</p>
-                <footer>
-                    <strong>Ana</strong> from Brazil
-                </footer>
-            </article>
-            <article>
-                <p>"The blog posts are simple and straight to the point. Perfect for beginners."</p>
-                <footer>
-                    <strong>James</strong> from Australia
-                </footer>
-            </article>
+    <section id="testimonials" class="py-6 bg-light position-relative">
+        <div class="container">
+            <div class="text-center mb-5">
+                <div class="badge px-3 py-2 rounded-pill mb-3" data-aos="fade-up" 
+                     style="background-color: rgba(255, 196, 0, 0.1); color: #FFC400;">
+                    Testimonials
+                </div>
+                <h2 class="display-4 fw-bold mb-4" data-aos="fade-up">What Our <span style="color: #FF0000;">Viewers</span> Say</h2>
+            </div>
+
+            <div class="row g-4 justify-content-center">
+                <!-- Testimonial 1 -->
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="card testimonial-card border-0 bg-white shadow-sm hover-float rounded-4 p-4 h-100">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-4">
+                                <img src="https://randomuser.me/api/portraits/men/1.jpg" class="rounded-circle" width="60" height="60" alt="Liam">
+                                <div class="ms-3">
+                                    <h5 class="mb-1 fw-bold">Liam</h5>
+                                    <p class="mb-0 text-secondary">from UK</p>
+                                </div>
+                            </div>
+                            <p class="mb-0 lead">"SpanishTalking helped me speak basic Spanish in just a few weeks!"</p>
+                            <div class="mt-3 text-warning">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="card testimonial-card border-0 bg-white shadow-sm hover-float rounded-4 p-4 h-100">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-4">
+                                <img src="https://randomuser.me/api/portraits/women/1.jpg" class="rounded-circle" width="60" height="60" alt="Ana">
+                                <div class="ms-3">
+                                    <h5 class="mb-1 fw-bold">Ana</h5>
+                                    <p class="mb-0 text-secondary">from Brazil</p>
+                                </div>
+                            </div>
+                            <p class="mb-0 lead">"I love how casual and real the videos are. Not boring like school."</p>
+                            <div class="mt-3 text-warning">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                    <div class="card testimonial-card border-0 bg-white shadow-sm hover-float rounded-4 p-4 h-100">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-4">
+                                <img src="https://randomuser.me/api/portraits/men/2.jpg" class="rounded-circle" width="60" height="60" alt="James">
+                                <div class="ms-3">
+                                    <h5 class="mb-1 fw-bold">James</h5>
+                                    <p class="mb-0 text-secondary">from Australia</p>
+                                </div>
+                            </div>
+                            <p class="mb-0 lead">"The blog posts are simple and straight to the point. Perfect for beginners."</p>
+                            <div class="mt-3 text-warning">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Background Elements -->
+        <div class="position-absolute top-0 end-0">
+            <div class="rounded-circle" style="width: 300px; height: 300px; background: linear-gradient(45deg, rgba(255,0,0,0.1), rgba(255,196,0,0.1)); filter: blur(60px);"></div>
+        </div>
+        <div class="position-absolute bottom-0 start-0">
+            <div class="rounded-circle" style="width: 250px; height: 250px; background: linear-gradient(45deg, rgba(255,196,0,0.1), rgba(255,0,0,0.1)); filter: blur(60px);"></div>
         </div>
 
         <!-- Decorative Elements -->
@@ -128,142 +230,56 @@ get_header(); ?>
             <i class="fas fa-comment-dots text-warning opacity-10" style="font-size: 70px;"></i>
         </div>
 
-        <div class="container position-relative">
-            <div class="text-center mb-5">
-                <div class="badge bg-warning bg-opacity-10 text-warning px-3 py-2 rounded-pill mb-3" data-aos="fade-up">
-                    Testimonials
-                </div>
-                <h2 class="display-4 fw-bold mb-4" data-aos="fade-up">What Our <span class="text-primary">Viewers</span> Say</h2>
-            </div>
-
-            <div class="row g-4 justify-content-center position-relative">
-                <!-- Testimonial 1 -->
-                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
-                    <div class="card testimonial-card border-0 bg-white bg-opacity-75 shadow-sm hover-float rounded-4 p-4 h-100">
-                        <div class="card-body p-2">
-                            <div class="d-flex align-items-center mb-4">
-                                <img src="https://randomuser.me/api/portraits/men/1.jpg" 
-                                     class="rounded-circle border border-3 border-white shadow-sm" 
-                                     width="60" height="60" alt="Liam">
-                                <div class="ms-3">
-                                    <h5 class="fw-bold mb-1">Liam</h5>
-                                    <p class="text-primary mb-0">from UK</p>
-                                </div>
-                            </div>
-                            <div class="mb-3 text-warning">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                            <p class="lead mb-0">"SpanishTalking helped me speak basic Spanish in just a few weeks!"</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Testimonial 2 -->
-                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
-                    <div class="card testimonial-card border-0 bg-white bg-opacity-75 shadow-sm hover-float rounded-4 p-4 h-100">
-                        <div class="card-body p-2">
-                            <div class="d-flex align-items-center mb-4">
-                                <img src="https://randomuser.me/api/portraits/women/1.jpg" 
-                                     class="rounded-circle border border-3 border-white shadow-sm" 
-                                     width="60" height="60" alt="Ana">
-                                <div class="ms-3">
-                                    <h5 class="fw-bold mb-1">Ana</h5>
-                                    <p class="text-primary mb-0">from Brazil</p>
-                                </div>
-                            </div>
-                            <div class="mb-3 text-warning">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                            <p class="lead mb-0">"I love how casual and real the videos are. Not boring like school."</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Testimonial 3 -->
-                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
-                    <div class="card testimonial-card border-0 bg-white bg-opacity-75 shadow-sm hover-float rounded-4 p-4 h-100">
-                        <div class="card-body p-2">
-                            <div class="d-flex align-items-center mb-4">
-                                <img src="https://randomuser.me/api/portraits/men/2.jpg" 
-                                     class="rounded-circle border border-3 border-white shadow-sm" 
-                                     width="60" height="60" alt="James">
-                                <div class="ms-3">
-                                    <h5 class="fw-bold mb-1">James</h5>
-                                    <p class="text-primary mb-0">from Australia</p>
-                                </div>
-                            </div>
-                            <div class="mb-3 text-warning">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                            <p class="lead mb-0">"The blog posts are simple and straight to the point. Perfect for beginners."</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Background Circles -->
-                <div class="position-absolute top-50 start-50 translate-middle" style="z-index: -1;">
-                    <div class="rounded-circle bg-primary bg-opacity-10" 
-                         style="width: 300px; height: 300px; transform: translateX(-150px);"></div>
-                </div>
-            </div>
-        </div>
+        
     </section>
     
 
     <!-- What is SpanishTalking.com Section -->
-    <section class="position-relative py-5" id="about">
+    <section class="position-relative py-6" id="about">
         <!-- Background Design Elements -->
-        <div class="position-absolute top-0 start-0 w-100 h-100" style="background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);"></div>
+        <div class="position-absolute top-0 start-0 w-100 h-100" 
+             style="background: linear-gradient(135deg, rgba(255,0,0,0.05) 0%, rgba(255,196,0,0.05) 100%);"></div>
         <div class="position-absolute top-0 end-0 translate-middle-y">
-            <div class="bg-primary opacity-10 rounded-circle" 
-                 style="width: 400px; height: 400px; filter: blur(80px);"></div>
+            <div class="rounded-circle" 
+                 style="width: 400px; height: 400px; background: linear-gradient(45deg, rgba(255,0,0,0.1), rgba(255,196,0,0.1)); filter: blur(80px);"></div>
         </div>
         <div class="position-absolute bottom-0 start-0">
-            <div class="bg-info opacity-10 rounded-circle" 
-                 style="width: 300px; height: 300px; filter: blur(60px);"></div>
+            <div class="rounded-circle" 
+                 style="width: 300px; height: 300px; background: linear-gradient(45deg, rgba(255,196,0,0.1), rgba(255,0,0,0.1)); filter: blur(60px);"></div>
         </div>
         
         <div class="container position-relative">
             <div class="row justify-content-center">
                 <div class="col-lg-8 text-center">
-                    <div class="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill mb-3" data-aos="fade-up">
+                    <div class="badge px-3 py-2 rounded-pill mb-3" data-aos="fade-up" 
+                         style="background-color: rgba(255, 0, 0, 0.1); color: #FF0000;">
                         About Us
                     </div>
-                    <h2 class="display-4 fw-bold mb-4" data-aos="fade-up">So... What is <span class="text-primary">SpanishTalking.com</span>?</h2>
+                    <h2 class="display-4 fw-bold mb-5" data-aos="fade-up">
+                        So... What is <span style="color: #FF0000;">SpanishTalking.com</span>?
+                    </h2>
                     
                     <!-- Feature Cards -->
                     <div class="row g-4 mb-5">
                         <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
-                            <div class="card border-0 bg-white bg-opacity-75 shadow-sm hover-shadow-md rounded-4 p-4 h-100">
+                            <div class="card border-0 shadow-sm rounded-4 p-4 h-100 hover-float">
                                 <div class="card-body">
-                                    <div class="icon-wrapper bg-primary bg-opacity-10 text-primary rounded-3 mb-3 mx-auto">
-                                        <i class="fas fa-graduation-cap"></i>
+                                    <div class="icon-wrapper mb-4">
+                                        <i class="fas fa-graduation-cap fa-2x" style="color: #FF0000;"></i>
                                     </div>
-                                    <h5 class="fw-bold mb-3">Natural Learning</h5>
-                                    <p class="text-secondary mb-0">Your go-to space for learning Spanish in a natural and enjoyable way.</p>
+                                    <h4 class="fw-bold mb-3">Natural Learning</h4>
+                                    <p class="text-secondary mb-0">We use everyday Spanish stories and situations to help you learn naturally and effectively.</p>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6" data-aos="fade-up" data-aos-delay="200">
-                            <div class="card border-0 bg-white bg-opacity-75 shadow-sm hover-shadow-md rounded-4 p-4 h-100">
+                            <div class="card border-0 shadow-sm rounded-4 p-4 h-100 hover-float">
                                 <div class="card-body">
-                                    <div class="icon-wrapper bg-primary bg-opacity-10 text-primary rounded-3 mb-3 mx-auto">
-                                        <i class="fas fa-video"></i>
+                                    <div class="icon-wrapper mb-4">
+                                        <i class="fas fa-video fa-2x" style="color: #FFC400;"></i>
                                     </div>
-                                    <h5 class="fw-bold mb-3">Rich Content</h5>
-                                    <p class="text-secondary mb-0">Free lessons, tips, and cultural insights through our blog and YouTube channel.</p>
+                                    <h4 class="fw-bold mb-3">Rich Content</h4>
+                                    <p class="text-secondary mb-0">Access our growing library of video lessons, blog posts, and interactive exercises.</p>
                                 </div>
                             </div>
                         </div>
@@ -273,15 +289,18 @@ get_header(); ?>
                         Whether you're a total beginner or someone brushing up, we've got you covered with simple explanations, 
                         vocabulary lists, grammar tips, and helpful videos.
                     </p>
-                    <p class="lead fw-semibold text-primary mb-5" data-aos="fade-up">
+                    <p class="lead fw-bold mb-5" data-aos="fade-up" style="color: #FF0000;">
                         👉 We don't overcomplicate things. We focus on helping you speak and understand Spanish, naturally.
                     </p>
                     
                     <div class="d-flex justify-content-center gap-3" data-aos="fade-up">
-                        <a href="#blog" class="btn btn-primary btn-lg rounded-pill px-4 hover-shadow-primary">
-                            <i class="fas fa-book me-2"></i>Explore the Blog
+                        <a href="#blog" class="btn btn-lg rounded-pill px-4 hover-float" 
+                           style="background-color: #FF0000; color: white;">
+                            <i class="fas fa-book-open me-2"></i>Explore the Blog
                         </a>
-                        <a href="https://youtube.com" target="_blank" class="btn btn-danger btn-lg rounded-pill px-4 hover-shadow-danger">
+                        <a href="https://youtube.com" target="_blank" 
+                           class="btn btn-lg rounded-pill px-4 hover-float"
+                           style="background-color: #FFC400; color: white;">
                             <i class="fab fa-youtube me-2"></i>Subscribe on YouTube
                         </a>
                     </div>
@@ -297,31 +316,29 @@ get_header(); ?>
             <i class="fas fa-graduation-cap text-info opacity-10" style="font-size: 70px;"></i>
         </div>
     </section>
-    
-    
 
     <!-- Blog Section -->
-    <section class="position-relative py-5 overflow-hidden" id="blog">
+    <section class="position-relative overflow-hidden" id="blog">
         <!-- Section Separator -->
-        <div class="section-separator-top">
+        <div class="section-separator-top d-none">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none">
                 <path fill="#ffffff" fill-opacity="1" d="M0,96L48,112C96,128,192,160,288,144C384,128,480,64,576,48C672,32,768,64,864,80C960,96,1056,96,1152,80C1248,64,1344,32,1392,16L1440,0L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
             </svg>
         </div>
         
-        <div class="section-separator-bottom">
+        <div class="section-separator-bottom d-none">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none">
                 <path fill="#ffffff" fill-opacity="1" d="M0,160L48,176C96,192,192,224,288,208C384,192,480,128,576,112C672,96,768,128,864,144C960,160,1056,160,1152,144C1248,128,1344,96,1392,80L1440,64L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path>
             </svg>
         </div>
 
-        <div class="container position-relative py-5">
+        <div class="container position-relative pt-4">
             <div class="text-center mb-5">
-                <div class="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill mb-3" data-aos="fade-up">
+                <div class="badge px-3 py-2 rounded-pill mb-3" data-aos="fade-up" style="background-color: rgba(255, 196, 0, 0.1); color: #FFC400;">
                     Featured Content
                 </div>
                 <h2 class="display-4 fw-bold mb-4" data-aos="fade-up">
-                    Popular <span class="text-primary">Spanish Lessons</span>
+                    Popular <span style="color: #FF0000;">Spanish Lessons</span>
                 </h2>
                 <p class="lead text-secondary col-lg-8 mx-auto" data-aos="fade-up">
                     Start your Spanish journey with our most helpful and engaging content
@@ -448,7 +465,7 @@ get_header(); ?>
                     $lessons_url = home_url();
                 }
                 ?>
-                <a href="<?php echo esc_url($lessons_url); ?>" class="btn btn-primary btn-lg rounded-pill px-5 hover-shadow-primary">
+                <a href="<?php echo esc_url($lessons_url); ?>" class="btn btn-danger btn-lg rounded-pill px-5 hover-shadow-primary">
                     <i class="fas fa-book-open me-2"></i>Explore All Lessons
                 </a>
             </div>
@@ -459,75 +476,377 @@ get_header(); ?>
 
     
 
-    <!-- YouTube Channel Section -->
-    <section id="youtube">
-        <h2>Watch & Learn on YouTube</h2>
-        <p>Learn on the go with our YouTube channel — real conversations, real-life Spanish, and relaxed explanations.</p>
-
-            <div>
-                <!-- Featured Video 1 -->
-                <article>
-                    <img src="<?php echo esc_url(get_theme_file_uri('assets/video-thumbnail-1.jpg')); ?>" 
-                         alt="Spanish Greetings">
-                    <h3>Spanish Greetings You Should Actually Use</h3>
-                    <p>Learn authentic Spanish greetings used by native speakers</p>
-                    <span>Beginner</span>
-                    <span>10:25</span>
-                </article>
-
-                <!-- Featured Video 2 -->
-                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
-                    <div class="card border-0 shadow-sm h-100 video-card">
-                        <div class="ratio ratio-16x9 rounded-top overflow-hidden">
-                            <img src="<?php echo esc_url(get_theme_file_uri('assets/video-thumbnail-2.jpg')); ?>" 
-                                 alt="Common Phrases" class="object-fit-cover w-100">
-                            <div class="video-overlay d-flex align-items-center justify-content-center">
-                                <i class="fas fa-play-circle fa-3x text-white"></i>
+    <!-- Video Modal -->
+    <div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="videoModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content bg-dark">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title text-white" id="videoModalLabel"></h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-0">
+                    <div class="ratio ratio-16x9">
+                        <div id="videoContainer" class="position-relative">
+                            <div id="thumbnailContainer" class="w-100 h-100 position-absolute top-0 start-0">
+                                <img id="videoThumbnail" src="" alt="Video Thumbnail" class="w-100 h-100 object-fit-cover">
+                                <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center bg-dark bg-opacity-50">
+                                    <button class="btn btn-danger btn-lg rounded-circle play-button" onclick="playVideo()">
+                                        <i class="fas fa-play"></i>
+                                    </button>
+                                </div>
                             </div>
-                        </div>
-                        <div class="card-body p-4">
-                            <h5 class="card-title">5 Common Phrases in Real Conversations</h5>
-                            <p class="text-muted">Essential expressions for natural Spanish conversations</p>
+                            <iframe id="youtubeVideo" src="" title="YouTube video player" frameborder="0" 
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                    allowfullscreen class="d-none"></iframe>
                         </div>
                     </div>
                 </div>
-
-                <!-- Featured Video 3 -->
-                <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
-                    <div class="card border-0 shadow-sm h-100 video-card">
-                        <div class="ratio ratio-16x9 rounded-top overflow-hidden">
-                            <img src="<?php echo esc_url(get_theme_file_uri('assets/video-thumbnail-3.jpg')); ?>" 
-                                 alt="Listening Practice" class="object-fit-cover w-100">
-                            <div class="video-overlay d-flex align-items-center justify-content-center">
-                                <i class="fas fa-play-circle fa-3x text-white"></i>
-                            </div>
-                        </div>
-                        <div class="card-body p-4">
-                            <h5 class="card-title">Beginner Spanish Listening Practice</h5>
-                            <p class="text-muted">Improve your Spanish listening skills with these exercises</p>
-                        </div>
-                    </div>
+                <div class="modal-footer border-0">
+                    <p class="text-white mb-0" id="videoDescription"></p>
                 </div>
-            </div>
-
-            <div class="text-center mt-5">
-                <a href="https://youtube.com" target="_blank" class="btn btn-danger btn-lg rounded-pill px-5">
-                    <i class="fab fa-youtube me-2"></i>Watch More Videos on YouTube
-                </a>
             </div>
         </div>
+    </div>
+
+    <!-- YouTube Channel Section -->
+    <section id="youtube" class="py-6 position-relative overflow-hidden">
+        <!-- Background Elements -->
+        <div class="position-absolute top-0 end-0">
+            <div class="rounded-circle" style="width: 400px; height: 400px; background: linear-gradient(45deg, rgba(255,0,0,0.1), rgba(255,196,0,0.1)); filter: blur(80px);"></div>
+        </div>
+        <div class="position-absolute bottom-0 start-0">
+            <div class="rounded-circle" style="width: 300px; height: 300px; background: linear-gradient(45deg, rgba(255,196,0,0.1), rgba(255,0,0,0.1)); filter: blur(60px);"></div>
+        </div>
+
+        <div class="container">
+            <!-- Section Header -->
+            <div class="text-center mb-5">
+                <div class="badge px-3 py-2 rounded-pill mb-3" data-aos="fade-up" 
+                     style="background-color: rgba(255, 0, 0, 0.1); color: #FF0000;">
+                    YouTube Channel
+                </div>
+                <h2 class="display-4 fw-bold mb-4" data-aos="fade-up">Watch & Learn on <span style="color: #FF0000;">YouTube</span></h2>
+                <p class="lead text-secondary col-lg-8 mx-auto" data-aos="fade-up">
+                    Learn on the go with our YouTube channel — real conversations, real-life Spanish, and relaxed explanations
+                </p>
+            </div>
+
+            <!-- Featured Videos Grid -->
+            <div class="row g-4">
+                <!-- Featured Video 1 - Large -->
+                <div class="col-lg-8" data-aos="fade-up">
+                    <div class="card border-0 shadow-lg hover-float rounded-4 overflow-hidden" data-video-id="video1">
+                        <div class="position-relative">
+                            <div class="ratio ratio-16x9">
+                                <img src="<?php echo esc_url(get_theme_file_uri('assets/video-thumbnail-1.jpg')); ?>" 
+                                     alt="Spanish Greetings" 
+                                     class="object-fit-cover w-100">
+                            </div>
+                            <div class="position-absolute top-0 start-0 w-100 h-100 bg-dark bg-opacity-25 d-flex align-items-center justify-content-center video-hover-effect cursor-pointer">
+                                <span class="btn btn-lg btn-danger rounded-circle play-button">
+                                    <i class="fas fa-play"></i>
+                                </span>
+                            </div>
+                            <div class="position-absolute top-0 end-0 m-3">
+                                <span class="badge bg-danger">Featured</span>
+                            </div>
+                        </div>
+                        <div class="card-body p-4">
+                            <div class="d-flex align-items-center mb-3">
+                                <span class="badge bg-danger bg-opacity-10 text-danger me-2">Beginner</span>
+                                <span class="text-secondary"><i class="far fa-clock me-1"></i>10:25</span>
+                            </div>
+                            <h3 class="fw-bold mb-2">Spanish Greetings You Should Actually Use</h3>
+                            <p class="text-secondary mb-0">Learn authentic Spanish greetings used by native speakers in real conversations</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Side Videos -->
+                <div class="col-lg-4">
+                    <div class="row g-4">
+                        <!-- Video 2 -->
+                        <div class="col-12" data-aos="fade-up" data-aos-delay="100">
+                            <div class="card border-0 shadow-sm hover-float rounded-4 overflow-hidden" data-video-id="video2">
+                                <div class="position-relative">
+                                    <div class="ratio ratio-16x9">
+                                        <img src="<?php echo esc_url(get_theme_file_uri('assets/video-thumbnail-2.jpg')); ?>" 
+                                             alt="Common Phrases" 
+                                             class="object-fit-cover w-100">
+                                    </div>
+                                    <div class="position-absolute top-0 start-0 w-100 h-100 bg-dark bg-opacity-25 d-flex align-items-center justify-content-center video-hover-effect cursor-pointer">
+                                        <span class="btn btn-danger rounded-circle play-button">
+                                            <i class="fas fa-play"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="card-body p-3">
+                                    <div class="d-flex align-items-center mb-2">
+                                        <span class="badge bg-primary bg-opacity-10 text-primary me-2">Intermediate</span>
+                                        <span class="text-secondary small"><i class="far fa-clock me-1"></i>8:15</span>
+                                    </div>
+                                    <h5 class="fw-bold mb-1">5 Common Phrases in Real Conversations</h5>
+                                    <p class="text-secondary small mb-0">Essential expressions for natural Spanish conversations</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Video 3 -->
+                        <div class="col-12" data-aos="fade-up" data-aos-delay="200">
+                            <div class="card border-0 shadow-sm hover-float rounded-4 overflow-hidden" data-video-id="video3">
+                                <div class="position-relative">
+                                    <div class="ratio ratio-16x9">
+                                        <img src="<?php echo esc_url(get_theme_file_uri('assets/video-thumbnail-3.jpg')); ?>" 
+                                             alt="Listening Practice" 
+                                             class="object-fit-cover w-100">
+                                    </div>
+                                    <div class="position-absolute top-0 start-0 w-100 h-100 bg-dark bg-opacity-25 d-flex align-items-center justify-content-center video-hover-effect cursor-pointer">
+                                        <span class="btn btn-danger rounded-circle play-button">
+                                            <i class="fas fa-play"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="card-body p-3">
+                                    <div class="d-flex align-items-center mb-2">
+                                        <span class="badge bg-success bg-opacity-10 text-success me-2">Practice</span>
+                                        <span class="text-secondary small"><i class="far fa-clock me-1"></i>15:30</span>
+                                    </div>
+                                    <h5 class="fw-bold mb-1">Beginner Spanish Listening Practice</h5>
+                                    <p class="text-secondary small mb-0">Improve your Spanish listening skills with these exercises</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- YouTube Channel Link -->
+            <div class="text-center mt-5" data-aos="fade-up">
+                <a href="https://youtube.com" target="_blank" 
+                   class="btn btn-danger btn-lg rounded-pill px-5 hover-float-lg">
+                    <i class="fab fa-youtube me-2"></i>Subscribe to Our YouTube Channel
+                </a>
+                <p class="text-secondary mt-3">
+                    Join <strong>50,000+</strong> subscribers learning Spanish with us!
+                </p>
+            </div>
+        </div>
+
+        <!-- Decorative Elements -->
+        <div class="position-absolute" style="bottom: 50px; left: 5%;">
+            <i class="fas fa-video text-danger opacity-10" style="font-size: 60px;"></i>
+        </div>
+        <div class="position-absolute" style="top: 80px; right: 10%;">
+            <i class="fas fa-closed-captioning text-warning opacity-10" style="font-size: 70px;"></i>
+        </div>
     </section>
+
+    <style>
+    /* Contact Form Styles */
+    .contact-form .form-control,
+    .contact-form .form-select {
+        border: 2px solid #dee2e6;
+        padding: 1rem;
+        height: calc(3.5rem + 2px);
+        transition: all 0.3s ease;
+    }
+    
+    .contact-form .form-control:focus,
+    .contact-form .form-select:focus {
+        border-color: #dc3545;
+        box-shadow: 0 0 0 0.25rem rgba(220,53,69,.25);
+    }
+    
+    .contact-form textarea.form-control {
+        height: 150px;
+        resize: none;
+    }
+    
+    .hover-float {
+        transition: all 0.3s ease;
+    }
+    
+    .hover-float:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 1rem 3rem rgba(0,0,0,.175)!important;
+    }
+    
+    .contact-form .btn {
+        transition: all 0.3s ease;
+    }
+    
+    .contact-form .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 0.5rem 1rem rgba(220,53,69,.15);
+    }
+
+    /* Newsletter Styles */
+    .newsletter-box {
+        background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .newsletter-box:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 1rem 3rem rgba(0,0,0,.175)!important;
+    }
+    
+    .subscribe-form .form-control {
+        border-color: #dee2e6;
+        padding: 1rem;
+        height: 3.5rem;
+        transition: all 0.3s ease;
+    }
+    
+    .subscribe-form .form-control:focus {
+        border-color: #dc3545;
+        box-shadow: 0 0 0 0.25rem rgba(220,53,69,.25);
+    }
+    
+    .subscribe-form .btn {
+        transition: all 0.3s ease;
+    }
+    
+    .subscribe-form .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 0.5rem 1rem rgba(220,53,69,.15);
+    }
+
+    /* YouTube Section Specific Styles */
+    .video-hover-effect {
+        opacity: 0;
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+    .card:hover .video-hover-effect {
+        opacity: 1;
+    }
+    .play-button {
+        width: 60px;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.3s ease;
+    }
+    .card:hover .play-button {
+        transform: scale(1.1);
+    }
+    .hover-float-lg {
+        transition: all 0.3s ease;
+    }
+    .hover-float-lg:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 1rem 3rem rgba(0,0,0,.175);
+    }
+    .cursor-pointer {
+        cursor: pointer;
+    }
+    #videoModal .modal-content {
+        border: none;
+        border-radius: 1rem;
+        overflow: hidden;
+    }
+    #videoModal .modal-header,
+    #videoModal .modal-footer {
+        background-color: rgba(0, 0, 0, 0.8);
+    }
+    #videoModal .btn-close {
+        z-index: 1;
+    }
+    #videoModal .modal-body {
+        padding: 0;
+    }
+    #videoModal .modal-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+    }
+    #videoModal #thumbnailContainer {
+        transition: opacity 0.3s ease;
+    }
+    #videoModal .play-button {
+        width: 80px;
+        height: 80px;
+        transition: all 0.3s ease;
+    }
+    #videoModal .play-button:hover {
+        transform: scale(1.1);
+        box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+    }
+    #videoModal #videoDescription {
+        font-size: 0.9rem;
+        opacity: 0.8;
+    }
+    </style>
             
 
     <!-- Newsletter Section -->
-    <section id="newsletter">
-        <h2>Want Weekly Spanish Tips?</h2>
-        <p>Join our email list and get short, useful Spanish lessons directly in your inbox.</p>
-        <form>
-            <input type="email" placeholder="Enter your email address" required>
-            <button type="submit">Subscribe</button>
-            <small>By subscribing, you agree to receive our newsletter. No spam, ever.</small>
-        </form>
+    <section id="newsletter" class="py-6 position-relative" style="background: linear-gradient(135deg, rgba(255,0,0,0.05) 0%, rgba(255,196,0,0.05) 100%);">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="newsletter-box bg-white p-5 rounded-4 shadow-lg text-center position-relative overflow-hidden" data-aos="fade-up">
+                        <!-- Decorative elements -->
+                        <div class="position-absolute top-0 end-0">
+                            <i class="fas fa-envelope-open-text text-danger opacity-10" style="font-size: 80px; transform: rotate(15deg); margin-top: -20px; margin-right: -20px;"></i>
+                        </div>
+                        <div class="position-absolute bottom-0 start-0">
+                            <i class="fas fa-paper-plane text-warning opacity-10" style="font-size: 70px; transform: rotate(-15deg); margin-bottom: -20px; margin-left: -20px;"></i>
+                        </div>
+                        
+                        <!-- Newsletter content -->
+                        <div class="position-relative">
+                            <div class="badge bg-danger-subtle text-danger px-3 py-2 rounded-pill mb-3">
+                                Newsletter
+                            </div>
+                            <h2 class="display-5 fw-bold mb-4">Get Weekly Spanish Tips!</h2>
+                            <p class="lead text-secondary mb-4">
+                                Join our community and receive free Spanish lessons, tips, and cultural insights directly in your inbox.
+                            </p>
+                            
+                            <!-- Subscribe form -->
+                            <form id="subscribeForm" class="subscribe-form" onsubmit="return handleSubscribe(event)">
+                                <div class="row g-3">
+                                    <div class="col-md-8">
+                                        <div class="form-floating">
+                                            <input type="email" class="form-control border-2" id="emailSubscribe" placeholder="Enter your email" required>
+                                            <label for="emailSubscribe">Enter your email address</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <button type="submit" class="btn btn-danger w-100 h-100 fw-bold">
+                                            Subscribe Now
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                            
+                            <!-- Success message (hidden by default) -->
+                            <div id="subscribeSuccess" class="alert alert-success mt-3 d-none">
+                                <i class="fas fa-check-circle me-2"></i>
+                                Thank you for subscribing! Please check your email to confirm.
+                            </div>
+                            
+                            <p class="text-secondary small mt-3">
+                                <i class="fas fa-shield-alt me-1"></i>
+                                We respect your privacy. Unsubscribe at any time.
+                            </p>
+                        </div>
+                    </div>
+                        Join our email list and get short, useful Spanish lessons directly in your inbox.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Background Elements -->
+        <div class="position-absolute top-0 end-0">
+            <div class="rounded-circle" style="width: 300px; height: 300px; background: linear-gradient(45deg, rgba(255,0,0,0.1), rgba(255,196,0,0.1)); filter: blur(60px);"></div>
+        </div>
+        <div class="position-absolute bottom-0 start-0">
+            <div class="rounded-circle" style="width: 250px; height: 250px; background: linear-gradient(45deg, rgba(255,196,0,0.1), rgba(255,0,0,0.1)); filter: blur(60px);"></div>
+        </div>
+
         <!-- Background SVG Wave -->
         <div class="position-absolute bottom-0 start-0 w-100 overflow-hidden" style="transform: translateY(1px);">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none" style="width: 100%; height: 60px;">
@@ -537,120 +856,176 @@ get_header(); ?>
     </section>
 
     <!-- Contact Section -->
-    <section id="contact">
-        <h2>Get in Touch</h2>
-        <p>Have questions about our Spanish lessons? We're here to help!</p>
-        <form>
-            <div>
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name" required>
-            </div>
-            <div>
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
-            </div>
-            <div>
-                <label for="message">Message:</label>
-                <textarea id="message" name="message" required></textarea>
-            </div>
-            <button type="submit">Send Message</button>
-        </form>
-    </section>
-            
-            <div class="row justify-content-center">
-                <div class="col-lg-8">
-                    <div class="card border-0 shadow-lg rounded-4 p-4" data-aos="fade-up">
-                        <div class="card-body">
-                            <form id="contactForm" class="needs-validation" novalidate>
-                                <div class="row g-4">
-                                    <div class="col-md-6">
-                                        <div class="form-floating">
-                                            <input type="text" class="form-control" id="name" placeholder="Your Name" required>
-                                            <label for="name">Your Name</label>
-                                            <div class="invalid-feedback">Please enter your name.</div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-floating">
-                                            <input type="email" class="form-control" id="email" placeholder="Email Address" required>
-                                            <label for="email">Email Address</label>
-                                            <div class="invalid-feedback">Please enter a valid email.</div>
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="form-floating">
-                                            <select class="form-select" id="subject" required>
-                                                <option value="" selected disabled>Select a subject</option>
-                                                <option value="course-inquiry">Course Inquiry</option>
-                                                <option value="private-tutoring">Private Tutoring</option>
-                                                <option value="general-question">General Question</option>
-                                                <option value="other">Other</option>
-                                            </select>
-                                            
-                                            <div class="invalid-feedback">Please select a subject.</div>
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="form-floating">
-                                            <textarea class="form-control" id="message" style="height: 150px" placeholder="Your Message" required></textarea>
-                                            <label for="message">Your Message</label>
-                                            <div class="invalid-feedback">Please enter your message.</div>
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <button type="submit" class="btn btn-primary btn-lg rounded-pill w-100">
-                                            Send Message <i class="fas fa-paper-plane ms-2"></i>
-                                        </button>
+<section id="contact" class="py-6 bg-light"> 
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="text-center mb-5">
+                    <div class="badge bg-danger-subtle text-danger px-3 py-2 rounded-pill mb-3" data-aos="fade-up">
+                        Contact Us
+                    </div>
+                    <h2 class="display-5 fw-bold mb-4" data-aos="fade-up">Get in Touch</h2>
+                    <p class="lead text-secondary" data-aos="fade-up">
+                        Have questions about our Spanish lessons? We're here to help!
+                    </p>
+                </div>
+
+                <div class="card border-0 shadow-lg rounded-4 p-4" data-aos="fade-up">
+                    <!-- Contact Form -->
+                    <form id="contactForm" class="contact-form needs-validation" novalidate onsubmit="return handleContact(event)">
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="name" name="name" placeholder="Your Name" required>
+                                    <label for="name">Your Name</label>
+                                    <div class="invalid-feedback">
+                                        Please enter your name
                                     </div>
                                 </div>
-                            </form>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input type="email" class="form-control" id="email" name="email" placeholder="Your Email" required>
+                                    <label for="email">Your Email</label>
+                                    <div class="invalid-feedback">
+                                        Please enter a valid email address
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <select class="form-select" id="subject" name="subject" required>
+                                        <option value="" selected disabled>Select a subject</option>
+                                        <option value="general">General Inquiry</option>
+                                        <option value="lessons">Spanish Lessons</option>
+                                        <option value="collaboration">Collaboration</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                    <label for="subject"></label>
+                                    <div class="invalid-feedback">
+                                        Please select a subject
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <textarea class="form-control" id="message" name="message" placeholder="Your Message" style="height: 150px" required></textarea>
+                                    <label for="message">Your Message</label>
+                                    <div class="invalid-feedback">
+                                        Please enter your message
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 text-center">
+                                <button type="submit" class="btn btn-danger btn-lg rounded-pill px-5">
+                                    <i class="fas fa-paper-plane me-2"></i> Send Message
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <!-- Success message (hidden by default) -->
+                    <div id="contactSuccess" class="alert alert-success mt-4 d-none">
+                        <i class="fas fa-check-circle me-2"></i>
+                        Thank you for your message! We'll get back to you soon.
+                    </div>
+                </div>
+                
+                <!-- Contact Information Cards -->
+                <div class="row g-4 mt-5">
+                    <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                        <div class="card border-0 bg-white shadow-sm rounded-4 p-4 text-center hover-float">
+                            <div class="text-danger mb-3">
+                                <i class="fas fa-envelope fa-2x"></i>
+                            </div>
+                            <h5 class="fw-bold">Email</h5>
+                            <p class="text-secondary mb-0">info@spanishtalking.com</p>
                         </div>
                     </div>
-                    
-                    <!-- Contact Information Cards -->
-                    <div class="row g-4 mt-5">
-                        <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
-                            <div class="card h-100 border-0 shadow-sm text-center p-4">
-                                <div class="card-body">
-                                    <div class="icon-wrapper bg-primary bg-opacity-10 text-primary rounded-circle mx-auto mb-4">
-                                        <i class="fas fa-envelope"></i>
-                                    </div>
-                                    <h5 class="fw-bold">Email</h5>
-                                    <p class="text-dark mb-0">info@spanishtalking.com</p>
-                                </div>
+                    <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                        <div class="card border-0 bg-white shadow-sm rounded-4 p-4 text-center hover-float">
+                            <div class="text-danger mb-3">
+                                <i class="fas fa-map-marker-alt fa-2x"></i>
                             </div>
+                            <h5 class="fw-bold">Location</h5>
+                            <p class="text-secondary mb-0">Malang, Indonesia</p>
                         </div>
-                        <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
-                            <div class="card h-100 border-0 shadow-sm text-center p-4">
-                                <div class="card-body">
-                                    <div class="icon-wrapper bg-primary bg-opacity-10 text-primary rounded-circle mx-auto mb-4">
-                                        <i class="fas fa-phone"></i>
-                                    </div>
-                                    <h5 class="fw-bold">Phone</h5>
-                                    <p class="text-dark mb-0">+62 812-3456-7890</p>
-                                </div>
+                    </div>
+                    <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                        <div class="card border-0 bg-white shadow-sm rounded-4 p-4 text-center hover-float">
+                            <div class="text-danger mb-3">
+                                <i class="fas fa-clock fa-2x"></i>
                             </div>
-                        </div>
-                        <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
-                            <div class="card h-100 border-0 shadow-sm text-center p-4">
-                                <div class="card-body">
-                                    <div class="icon-wrapper bg-primary bg-opacity-10 text-primary rounded-circle mx-auto mb-4">
-                                        <i class="fas fa-map-marker-alt"></i>
-                                    </div>
-                                    <h5 class="fw-bold">Location</h5>
-                                    <p class="text-dark mb-0">Jakarta, Indonesia</p>
-                                </div>
-                            </div>
+                            <h5 class="fw-bold">Business Hours</h5>
+                            <p class="text-secondary mb-0">Mon - Fri, 9AM - 5PM</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
     
 
     <script>
+    // Contact Form Handler
+    function handleContact(event) {
+        event.preventDefault();
+        
+        // Get form data
+        const form = document.getElementById('contactForm');
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const subject = document.getElementById('subject').value;
+        const message = document.getElementById('message').value;
+        
+        // Check form validity
+        if (!form.checkValidity()) {
+            form.classList.add('was-validated');
+            return false;
+        }
+        
+        // Basic validation
+        if (!name || !email || !subject || !message) {
+            form.classList.add('was-validated');
+            return false;
+        }
+        
+        // Here you would typically send this to your server
+        // For now, we'll just show the success message
+        form.classList.remove('was-validated');
+        form.reset();
+        const successMsg = document.getElementById('contactSuccess');
+        successMsg.classList.remove('d-none');
+        
+        // Hide success message after 5 seconds
+        setTimeout(() => {
+            successMsg.classList.add('d-none');
+        }, 5000);
+        
+        return false;
+    }
+
+    // Newsletter Subscribe Function
+    function handleSubscribe(event) {
+        event.preventDefault();
+        const email = document.getElementById('emailSubscribe').value;
+        
+        // Here you would typically send this to your server
+        // For now, we'll just show the success message
+        document.getElementById('subscribeForm').reset();
+        const successMsg = document.getElementById('subscribeSuccess');
+        successMsg.classList.remove('d-none');
+        
+        // Hide success message after 5 seconds
+        setTimeout(() => {
+            successMsg.classList.add('d-none');
+        }, 5000);
+        
+        return false;
+    }
+
     // Form Validation
     document.addEventListener('DOMContentLoaded', function() {
         const form = document.getElementById('contactForm');
@@ -662,17 +1037,83 @@ get_header(); ?>
             }
             form.classList.add('was-validated');
         });
+
+        // Video Modal Functionality
+        const videoModal = document.getElementById('videoModal');
+        const youtubeVideo = document.getElementById('youtubeVideo');
+        
+        // Video information
+        const videos = {
+            'video1': {
+                id: '_FH3K4QGJP0',
+                title: 'Spanish Greetings You Should Actually Use',
+                description: 'Learn authentic Spanish greetings used by native speakers in real conversations',
+                level: 'Beginner',
+                duration: '10:25'
+            },
+            'video2': {
+                id: 'lf7hHxYs_KU',
+                title: '5 Common Phrases in Real Conversations',
+                description: 'Essential expressions for natural Spanish conversations',
+                level: 'Intermediate',
+                duration: '8:15'
+            },
+            'video3': {
+                id: 'vJG698U2Mvo',
+                title: 'Beginner Spanish Listening Practice',
+                description: 'Improve your Spanish listening skills with these exercises',
+                level: 'Practice',
+                duration: '15:30'
+            }
+        };
+
+        function playVideo() {
+            const thumbnailContainer = document.getElementById('thumbnailContainer');
+            const youtubeVideo = document.getElementById('youtubeVideo');
+            thumbnailContainer.style.display = 'none';
+            youtubeVideo.classList.remove('d-none');
+        }
+
+        // Handle video card clicks
+        document.querySelectorAll('.video-hover-effect').forEach(function(card) {
+            card.addEventListener('click', function(e) {
+                const videoId = this.closest('.card').dataset.videoId;
+                const video = videos[videoId];
+                
+                // Set modal content
+                document.getElementById('videoModalLabel').textContent = video.title;
+                document.getElementById('videoDescription').textContent = video.description;
+                document.getElementById('videoThumbnail').src = `https://img.youtube.com/vi/${video.id}/maxresdefault.jpg`;
+                document.getElementById('youtubeVideo').src = `https://www.youtube.com/embed/${video.id}?autoplay=0`;
+                
+                // Reset video state
+                const thumbnailContainer = document.getElementById('thumbnailContainer');
+                const youtubeVideo = document.getElementById('youtubeVideo');
+                thumbnailContainer.style.display = 'block';
+                youtubeVideo.classList.add('d-none');
+                
+                const videoModal = new bootstrap.Modal(document.getElementById('videoModal'));
+                videoModal.show();
+            });
+        });
+
+        // Reset iframe src when modal is closed
+        videoModal.addEventListener('hidden.bs.modal', function () {
+            document.getElementById('youtubeVideo').src = '';
+            const thumbnailContainer = document.getElementById('thumbnailContainer');
+            const youtubeVideo = document.getElementById('youtubeVideo');
+            thumbnailContainer.style.display = 'block';
+            youtubeVideo.classList.add('d-none');
+        });
     });
     </script>
 
     
 
 </style>
-
-    <!-- Footer -->
-    <footer>
-        <p>&copy; <?php echo date('Y'); ?> SpanishTalking.com. All rights reserved.</p>
-    </footer>
 </main>
 
-<?php get_footer(); ?>
+<!-- Footer -->
+<?php
+get_template_part('template-parts/footer/footer');
+?>

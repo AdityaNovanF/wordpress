@@ -1,0 +1,64 @@
+/* Spanish Flag Color Theme */
+:root {
+    --spanish-red: #FF0000;
+    --spanish-yellow: #FFC400;
+    --spanish-red-hover: #CC0000;
+    --spanish-yellow-hover: #FFB300;
+}
+
+/* Button Styles */
+.btn-danger {
+    background-color: var(--spanish-red) !important;
+    border-color: var(--spanish-red) !important;
+}
+
+.btn-danger:hover {
+    background-color: var(--spanish-red-hover) !important;
+    border-color: var(--spanish-red-hover) !important;
+}
+
+.btn-outline-danger {
+    color: var(--spanish-red) !important;
+    border-color: var(--spanish-red) !important;
+}
+
+.btn-outline-danger:hover {
+    background-color: var(--spanish-red) !important;
+    color: white !important;
+}
+
+/* Text Colors */
+.text-primary {
+    color: var(--spanish-red) !important;
+}
+
+/* Background Colors */
+.bg-primary {
+    background-color: var(--spanish-red) !important;
+}
+
+.hover-shadow-primary:hover {
+    box-shadow: 0 0.5rem 1rem rgba(255, 0, 0, 0.15) !important;
+}
+
+/* Card Hover Effects */
+.hover-float:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0.5rem 1rem rgba(255, 0, 0, 0.1) !important;
+    transition: all 0.3s ease;
+}
+
+/* Section Background Gradients */
+.spanish-gradient {
+    background: linear-gradient(135deg, rgba(255, 0, 0, 0.05) 0%, rgba(255, 196, 0, 0.05) 100%);
+}
+
+/* Testimonial Cards */
+.testimonial-card {
+    border-left: 4px solid var(--spanish-red) !important;
+}
+
+/* Newsletter Section */
+.newsletter-section {
+    background: linear-gradient(135deg, rgba(255, 0, 0, 0.1) 0%, rgba(255, 196, 0, 0.1) 100%);
+}

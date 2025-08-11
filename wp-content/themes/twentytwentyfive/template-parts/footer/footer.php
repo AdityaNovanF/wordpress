@@ -11,7 +11,7 @@
         <div class="row gy-4">
             <div class="col-lg-4">
                 <a href="<?php echo home_url('/'); ?>" class="footer-brand">
-                    <span class="text-primary">Spanish</span>Talking.com
+                    <span style="color: #FF0000;">Spanish</span><span style="color: #FFB200;">Talking</span><span class="text-white">.com</span>
                 </a>
                 <p class="mt-3 mb-0 text-muted">Learn Spanish the simple and natural way.</p>
             </div>
@@ -46,8 +46,8 @@
                 <p class="text-muted mb-3">Subscribe for weekly Spanish tips!</p>
                 <form class="newsletter-form">
                     <div class="input-group">
-                        <input type="email" class="form-control" placeholder="Your email">
-                        <button class="btn btn-primary" type="submit">Sign Up</button>
+                        <input type="email" class="form-control" placeholder="Your email" aria-label="Your email address">
+                        <button class="btn btn-warning text-dark" type="submit">Sign Up</button>
                     </div>
                 </form>
             </div>
@@ -60,7 +60,7 @@
                 <p class="text-muted mb-0">© <?php echo date('Y'); ?> SpanishTalking.com | All Rights Reserved</p>
             </div>
             <div class="col-md-6 text-center text-md-end mt-3 mt-md-0">
-                <p class="text-muted mb-0">Designed with <i class="fas fa-heart text-danger"></i> for Spanish learners</p>
+                <p class="text-muted mb-0">Designed with <i class="fas fa-heart" style="color: #FFB200;"></i> for Spanish learners</p>
             </div>
         </div>
     </div>
@@ -71,7 +71,24 @@
             position: relative;
             overflow: hidden;
             color: #fff;
-            border-top: 3px solid #FFB200;
+            border-top: 5px solid #FFB200;
+            background-image: linear-gradient(135deg, rgba(255, 196, 0, 0.05) 25%, transparent 25%),
+                            linear-gradient(225deg, rgba(255, 196, 0, 0.05) 25%, transparent 25%),
+                            linear-gradient(45deg, rgba(255, 196, 0, 0.05) 25%, transparent 25%),
+                            linear-gradient(315deg, rgba(255, 196, 0, 0.05) 25%, transparent 25%);
+            background-position: 10px 0, 10px 0, 0 0, 0 0;
+            background-size: 20px 20px;
+            background-repeat: repeat;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
         }
 
         .footer-brand {
@@ -80,18 +97,35 @@
             text-decoration: none;
             color: #fff;
             display: inline-block;
+            position: relative;
+            padding-bottom: 5px;
+        }
+        
+        .footer-brand::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50%;
+            height: 2px;
+            background: #FFB200;
+            transition: width 0.3s ease;
         }
         
         .footer-brand:hover {
             text-decoration: none;
             color: #fff;
-            opacity: 0.9;
+        }
+
+        .footer-brand:hover::after {
+            width: 100%;
         }
 
         .text-muted {
-            color: rgba(255, 255, 255, 0.7) !important;
+            color: rgba(255, 255, 255, 0.8) !important;
             font-size: 1rem;
             line-height: 1.6;
+            transition: color 0.3s ease;
         }
         
         .social-link {
@@ -110,10 +144,11 @@
         }
 
         .social-link:hover {
-            transform: translateY(-3px);
-            background-color: #fff;
-            color: #0A1019;
-            border-color: #fff;
+            transform: translateY(-3px) rotate(8deg);
+            background-color: #FFB200;
+            color: #DE0000;
+            border-color: #FFB200;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
 
         .newsletter-form .form-control {
@@ -133,8 +168,8 @@
 
         .newsletter-form .form-control:focus {
             background-color: rgba(255,255,255,0.15);
-            border-color: rgba(255,255,255,0.3);
-            box-shadow: none;
+            border-color: #FFB200;
+            box-shadow: 0 0 0 0.2rem rgba(255, 178, 0, 0.25);
         }
 
         .newsletter-form .btn {
@@ -143,6 +178,17 @@
             padding: 0.75rem 1.5rem;
             font-weight: 600;
             font-size: 1rem;
+            background-color: #FFB200;
+            border-color: #FFB200;
+            color: #000;
+            transition: all 0.3s ease;
+        }
+
+        .newsletter-form .btn:hover {
+            background-color: #e6a100;
+            border-color: #e6a100;
+            color: #000;
+            transform: translateX(3px);
         }
 
         .footer h6 {

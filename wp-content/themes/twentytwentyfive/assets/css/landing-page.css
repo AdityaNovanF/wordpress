@@ -1,0 +1,118 @@
+/* Custom Utilities */
+.py-6 {
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+}
+
+/* Hover Effects */
+.hover-float {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-float:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(255, 0, 0, 0.1) !important;
+}
+
+/* Card Styles */
+.testimonial-card {
+    border-left: 4px solid #FF0000 !important;
+}
+
+.video-card:hover .play-icon {
+    transform: scale(1.1);
+    color: #FF0000;
+}
+
+.play-icon {
+    transition: all 0.3s ease;
+}
+
+/* Button Styles */
+.btn {
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 0, 0, 0.2);
+}
+
+/* Background Gradients */
+.spanish-gradient {
+    background: linear-gradient(135deg, rgba(255, 0, 0, 0.05) 0%, rgba(255, 196, 0, 0.05) 100%);
+}
+
+/* Newsletter Form */
+.newsletter-form {
+    background: white;
+    padding: 3px;
+    border-radius: 50px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.newsletter-form input {
+    border: none;
+    outline: none;
+    padding: 15px 20px;
+    border-radius: 50px;
+    width: 100%;
+}
+
+.newsletter-form button {
+    background: #FF0000;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 15px 30px;
+    transition: all 0.3s ease;
+}
+
+.newsletter-form button:hover {
+    background: #CC0000;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 0, 0, 0.2);
+}
+
+/* Contact Form */
+.contact-form .form-control {
+    border-radius: 10px;
+    padding: 12px 20px;
+    background: #f8f9fa;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.contact-form .form-control:focus {
+    border-color: #FF0000;
+    box-shadow: none;
+    background: white;
+}
+
+.contact-form textarea {
+    min-height: 120px;
+}
+
+/* Custom Animations */
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+
+.floating {
+    animation: float 3s ease-in-out infinite;
+}
+
+/* Responsive Text */
+@media (max-width: 768px) {
+    .display-3 {
+        font-size: 2.5rem;
+    }
+    .display-4 {
+        font-size: 2rem;
+    }
+    .lead {
+        font-size: 1.1rem;
+    }
+}

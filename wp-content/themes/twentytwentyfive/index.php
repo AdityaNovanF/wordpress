@@ -27,5 +27,5 @@ get_header();
 </div>
 
 <?php
-get_footer();
+get_template_part('template-parts/footer/footer');
 ?>
