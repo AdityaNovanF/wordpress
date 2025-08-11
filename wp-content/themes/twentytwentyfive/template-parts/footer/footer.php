@@ -67,10 +67,11 @@
 
     <style>
         .footer {
-            background-color: #0A1019;
+            background-color: #DE0000;
             position: relative;
             overflow: hidden;
             color: #fff;
+            border-top: 3px solid #FFB200;
         }
 
         .footer-brand {

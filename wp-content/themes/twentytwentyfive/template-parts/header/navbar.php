@@ -45,11 +45,12 @@
 .navbar {
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    background-color: rgba(255, 255, 255, 0.9) !important;
+    background-color: rgba(255, 255, 255, 0.95) !important;
     transition: all 0.3s ease;
     height: var(--navbar-height);
     min-height: auto;
     padding: 0;
+    border-bottom: 3px solid #FFB200;
 }
 
 .navbar-brand {
@@ -66,7 +67,11 @@
     height: var(--navbar-height);
     display: flex;
     align-items: center;
-    color: var(--dark);
+    color: #DE0000;
+}
+
+.nav-link:hover {
+    color: #AA151B;
 }
 
 .navbar .btn {
@@ -79,13 +84,19 @@
 }
 
 .navbar .btn-light {
-    background: #f8f9fa;
-    border-color: #f0f0f0;
+    background: rgba(255, 178, 0, 0.1);
+    border-color: #FFB200;
+    color: #DE0000;
 }
 
 .navbar .btn-primary {
-    background: var(--primary);
+    background: #DE0000;
     border: none;
+    color: #fff;
+}
+
+.navbar .btn-primary:hover {
+    background: #AA151B;
 }
 
 .navbar.scrolled {
