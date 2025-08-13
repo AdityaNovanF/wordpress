@@ -89,40 +89,89 @@ get_header();
                  style="width: 300px; height: 300px; filter: blur(40px); transform: translate(20%, -20%); background-color: rgba(255, 0, 0, 0.1);"></div>
             <div class="position-absolute bottom-0 start-0 rounded-circle" 
                  style="width: 200px; height: 200px; filter: blur(40px); transform: translate(-20%, 20%); background-color: rgba(255, 196, 0, 0.1);"></div>
-        </div>                        <!-- Main Image -->
-                        <div class="position-relative" data-aos="fade-up">
-                            <img src="<?php echo esc_url(get_theme_file_uri('assets/hero-image.jpg')); ?>" 
-                                 alt="Learn Spanish through stories" 
-                                 class="img-fluid rounded-4 shadow-lg"
-                                 style="max-height: 500px; object-fit: cover; width: 100%;"
-                            >
-                        </div>
+        </div>                        
                         
-                        <!-- Modern Floating Cards -->
-                        <div class="modern-floating-card card-1" 
-                             data-aos="fade-right" data-aos-delay="200">
-                            <div class="d-flex align-items-center gap-3">
-                                <div class="icon-wrapper">
-                                    <i class="fas fa-book text-primary"></i>
+                        <!-- Modern Floating Cards with Spanish Flag Colors -->
+                        <div class="position-absolute w-100 h-100" style="pointer-events: none;">
+                            <!-- Interactive Stories Card - Left -->
+                            <div class="modern-floating-card card-1 shadow-lg border-0 rounded-4 bg-white px-4 py-3 position-absolute"
+                                 data-aos="fade-right" data-aos-delay="200"
+                                 style="min-width: 260px; max-width: 320px; pointer-events: auto; box-shadow: 0 8px 32px rgba(220,53,69,0.08); left: 5%; top: -5%; z-index: 3;">
+                                <div class="spanish-flag-accent"></div>
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="icon-wrapper d-flex align-items-center justify-content-center rounded-circle bg-danger bg-opacity-10" style="width:48px;height:48px;">
+                                        <i class="fas fa-book text-danger fs-4"></i>
+                                    </div>
+                                    <div>
+                                        <h6 class="mb-1 fw-semibold">Interactive Stories</h6>
+                                        <small class="text-secondary">Learn naturally</small>
+                                    </div>
                                 </div>
-                                <div>
-                                    <h6 class="mb-1 fw-semibold">Interactive Stories</h6>
-                                    <small class="text-secondary">Learn naturally</small>
+                            </div>
+                            
+                            <!-- Certified Teachers Card - Right -->
+                            <div class="modern-floating-card card-2 shadow-lg border-0 rounded-4 bg-white px-4 py-3 position-absolute"
+                                 data-aos="fade-left" data-aos-delay="400"
+                                 style="min-width: 260px; max-width: 320px; pointer-events: auto; box-shadow: 0 8px 32px rgba(255,196,0,0.10); right: -15%; top: 80%; z-index: 2;">
+                                <div class="spanish-flag-accent"></div>
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="icon-wrapper d-flex align-items-center justify-content-center rounded-circle bg-warning bg-opacity-10" style="width:48px;height:48px;">
+                                        <i class="fas fa-graduation-cap text-warning fs-4"></i>
+                                    </div>
+                                    <div>
+                                        <h6 class="mb-1 fw-semibold">Certified Teachers</h6>
+                                        <small class="text-secondary">Native speakers</small>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="modern-floating-card card-2" 
-                             data-aos="fade-left" data-aos-delay="400">
-                            <div class="d-flex align-items-center gap-3">
-                                <div class="icon-wrapper">
-                                    <i class="fas fa-graduation-cap text-primary"></i>
-                                </div>
-                                <div>
-                                    <h6 class="mb-1 fw-semibold">Certified Teachers</h6>
-                                    <small class="text-secondary">Native speakers</small>
-                                </div>
-                            </div>
-                        </div>
+                        <style>
+                        .modern-floating-card {
+                            transition: transform 0.35s cubic-bezier(.4,2,.6,1), box-shadow 0.3s;
+                            will-change: transform;
+                            overflow: hidden;
+                        }
+                        .modern-floating-card:hover {
+                            transform: translateY(-8px) scale(1.03);
+                            box-shadow: 0 16px 48px rgba(220,53,69,0.12), 0 2px 8px rgba(0,0,0,0.04);
+                            z-index: 3;
+                        }
+                        .spanish-flag-accent {
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            right: 0;
+                            height: 3px;
+                            background: linear-gradient(to right, 
+                                #AA151B 0%, #AA151B 45%, 
+                                #F1BF00 45%, #F1BF00 55%, 
+                                #AA151B 55%, #AA151B 100%);
+                        }
+                        .card-1 {
+                            animation: floatAnimation1 6s ease-in-out infinite;
+                        }
+                        .card-2 {
+                            animation: floatAnimation2 8s ease-in-out infinite;
+                        }
+                        @keyframes floatAnimation1 {
+                            0%, 100% { transform: translateY(0); }
+                            50% { transform: translateY(-30px); }
+                        }
+                        @keyframes floatAnimation2 {
+                            0%, 100% { transform: translateY(0); }
+                            50% { transform: translateY(30px); }
+                        }
+                        @media (max-width: 991.98px) {
+                            .modern-floating-card {
+                                position: static !important;
+                                width: 100% !important;
+                                max-width: 100% !important;
+                                margin-top: 1rem;
+                                margin-bottom: 1rem;
+                                animation: none !important;
+                            }
+                        }
+                        </style>
                     </div>
                 </div>
             </div>
@@ -310,10 +359,10 @@ get_header();
         
         <!-- Add decorative elements -->
         <div class="position-absolute" style="bottom: 50px; left: 5%;">
-            <i class="fas fa-comment text-primary opacity-10" style="font-size: 60px;"></i>
+            <i class="fas fa-comment text-primary opacity-10" style="font-size: 70px;"></i>
         </div>
         <div class="position-absolute" style="top: 80px; right: 10%;">
-            <i class="fas fa-graduation-cap text-info opacity-10" style="font-size: 70px;"></i>
+            <i class="fas fa-graduation-cap text-warning opacity-10" style="font-size: 70px;"></i>
         </div>
     </section>
 
@@ -486,19 +535,15 @@ get_header();
                 </div>
                 <div class="modal-body p-0">
                     <div class="ratio ratio-16x9">
-                        <div id="videoContainer" class="position-relative">
-                            <div id="thumbnailContainer" class="w-100 h-100 position-absolute top-0 start-0">
-                                <img id="videoThumbnail" src="" alt="Video Thumbnail" class="w-100 h-100 object-fit-cover">
-                                <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center bg-dark bg-opacity-50">
-                                    <button class="btn btn-danger btn-lg rounded-circle play-button" onclick="playVideo()">
-                                        <i class="fas fa-play"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            <iframe id="youtubeVideo" src="" title="YouTube video player" frameborder="0" 
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                    allowfullscreen class="d-none"></iframe>
-                        </div>
+                        <iframe id="youtubeVideo" 
+                                src="" 
+                                title="YouTube video player" 
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen 
+                                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #000;">
+                        </iframe>
+                    </div>
                     </div>
                 </div>
                 <div class="modal-footer border-0">
@@ -535,29 +580,22 @@ get_header();
             <div class="row g-4">
                 <!-- Featured Video 1 - Large -->
                 <div class="col-lg-8" data-aos="fade-up">
-                    <div class="card border-0 shadow-lg hover-float rounded-4 overflow-hidden" data-video-id="video1">
-                        <div class="position-relative">
-                            <div class="ratio ratio-16x9">
-                                <img src="<?php echo esc_url(get_theme_file_uri('assets/video-thumbnail-1.jpg')); ?>" 
-                                     alt="Spanish Greetings" 
-                                     class="object-fit-cover w-100">
+                    <div class="card border-0 shadow-lg hover-float rounded-4 overflow-hidden cursor-pointer" data-video-id="J_BwA2YUIso">
+                        <div class="position-relative" style="padding-bottom: 56.25%;">
+                            <img src="https://i3.ytimg.com/vi/J_BwA2YUIso/hqdefault.jpg" 
+                                 alt="Featured Spanish Lesson" 
+                                 class="position-absolute w-100 h-100 object-fit-cover"
+                                 style="top: 0; left: 0;"
+                                 onerror="this.src='https://i3.ytimg.com/vi/J_BwA2YUIso/sddefault.jpg'">
+                            <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center video-hover-effect bg-dark bg-opacity-50">
+                                <div class="play-button bg-danger rounded-circle d-flex align-items-center justify-content-center" style="width: 64px; height: 64px;">
+                                    <i class="fas fa-play text-white fs-3"></i>
+                                </div>
                             </div>
-                            <div class="position-absolute top-0 start-0 w-100 h-100 bg-dark bg-opacity-25 d-flex align-items-center justify-content-center video-hover-effect cursor-pointer">
-                                <span class="btn btn-lg btn-danger rounded-circle play-button">
-                                    <i class="fas fa-play"></i>
-                                </span>
-                            </div>
-                            <div class="position-absolute top-0 end-0 m-3">
+                            <div class="position-absolute bottom-0 start-0 w-100 p-3 bg-dark bg-opacity-75">
                                 <span class="badge bg-danger">Featured</span>
+                                <h5 class="text-white mt-2 mb-0">Spanish Conversation For Beginners | Spanish Conversation: At The Market</h5>
                             </div>
-                        </div>
-                        <div class="card-body p-4">
-                            <div class="d-flex align-items-center mb-3">
-                                <span class="badge bg-danger bg-opacity-10 text-danger me-2">Beginner</span>
-                                <span class="text-secondary"><i class="far fa-clock me-1"></i>10:25</span>
-                            </div>
-                            <h3 class="fw-bold mb-2">Spanish Greetings You Should Actually Use</h3>
-                            <p class="text-secondary mb-0">Learn authentic Spanish greetings used by native speakers in real conversations</p>
                         </div>
                     </div>
                 </div>
@@ -567,54 +605,45 @@ get_header();
                     <div class="row g-4">
                         <!-- Video 2 -->
                         <div class="col-12" data-aos="fade-up" data-aos-delay="100">
-                            <div class="card border-0 shadow-sm hover-float rounded-4 overflow-hidden" data-video-id="video2">
+                            <div class="card border-0 shadow-sm hover-float rounded-4 overflow-hidden cursor-pointer video-card" data-video-id="znh2FjprL8E">
                                 <div class="position-relative">
-                                    <div class="ratio ratio-16x9">
-                                        <img src="<?php echo esc_url(get_theme_file_uri('assets/video-thumbnail-2.jpg')); ?>" 
-                                             alt="Common Phrases" 
-                                             class="object-fit-cover w-100">
+                                    <img src="https://img.youtube.com/vi/znh2FjprL8E/maxresdefault.jpg" 
+                                         alt="Spanish Numbers" 
+                                         class="img-fluid w-100"
+                                         onerror="this.src='https://img.youtube.com/vi/znh2FjprL8E/hqdefault.jpg'">
+                                    <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center video-hover-effect bg-dark bg-opacity-50">
+                                        <div class="play-button bg-danger rounded-circle d-flex align-items-center justify-content-center">
+                                            <i class="fas fa-play text-white"></i>
+                                        </div>
                                     </div>
-                                    <div class="position-absolute top-0 start-0 w-100 h-100 bg-dark bg-opacity-25 d-flex align-items-center justify-content-center video-hover-effect cursor-pointer">
-                                        <span class="btn btn-danger rounded-circle play-button">
-                                            <i class="fas fa-play"></i>
-                                        </span>
+                                    <div class="position-absolute bottom-0 start-0 w-100 p-3 bg-dark bg-opacity-75">
+                                        <h6 class="text-white mb-0">Spanish Lessons for Beginners: Master Days & Daily Routine with this Conversation</h6>
                                     </div>
-                                </div>
-                                <div class="card-body p-3">
-                                    <div class="d-flex align-items-center mb-2">
-                                        <span class="badge bg-primary bg-opacity-10 text-primary me-2">Intermediate</span>
-                                        <span class="text-secondary small"><i class="far fa-clock me-1"></i>8:15</span>
-                                    </div>
-                                    <h5 class="fw-bold mb-1">5 Common Phrases in Real Conversations</h5>
-                                    <p class="text-secondary small mb-0">Essential expressions for natural Spanish conversations</p>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Video 3 -->
                         <div class="col-12" data-aos="fade-up" data-aos-delay="200">
-                            <div class="card border-0 shadow-sm hover-float rounded-4 overflow-hidden" data-video-id="video3">
+                            <div class="card border-0 shadow-sm hover-float rounded-4 overflow-hidden cursor-pointer video-card" data-video-id="5SzS35aFCuI">
                                 <div class="position-relative">
                                     <div class="ratio ratio-16x9">
-                                        <img src="<?php echo esc_url(get_theme_file_uri('assets/video-thumbnail-3.jpg')); ?>" 
-                                             alt="Listening Practice" 
-                                             class="object-fit-cover w-100">
+                                        <img src="https://img.youtube.com/vi/5SzS35aFCuI/maxresdefault.jpg" 
+                                             alt="Common Phrases" 
+                                             class="img-fluid w-100"
+                                             onerror="this.src='https://img.youtube.com/vi/5SzS35aFCuI/hqdefault.jpg'">
                                     </div>
-                                    <div class="position-absolute top-0 start-0 w-100 h-100 bg-dark bg-opacity-25 d-flex align-items-center justify-content-center video-hover-effect cursor-pointer">
-                                        <span class="btn btn-danger rounded-circle play-button">
-                                            <i class="fas fa-play"></i>
-                                        </span>
+                                    <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center video-hover-effect bg-dark bg-opacity-50">
+                                        <div class="play-button bg-danger rounded-circle d-flex align-items-center justify-content-center">
+                                            <i class="fas fa-play text-white"></i>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="card-body p-3">
-                                    <div class="d-flex align-items-center mb-2">
-                                        <span class="badge bg-success bg-opacity-10 text-success me-2">Practice</span>
-                                        <span class="text-secondary small"><i class="far fa-clock me-1"></i>15:30</span>
+                                    <div class="position-absolute bottom-0 start-0 w-100 p-3 bg-dark bg-opacity-75">
+                                        <h6 class="text-white mb-0">Learn Spanish for Beginners | Easy Spanish Conversation in the Elevator</h6>
                                     </div>
-                                    <h5 class="fw-bold mb-1">Beginner Spanish Listening Practice</h5>
-                                    <p class="text-secondary small mb-0">Improve your Spanish listening skills with these exercises</p>
                                 </div>
                             </div>
+                        </div>
                         </div>
                     </div>
                 </div>
@@ -642,6 +671,32 @@ get_header();
     </section>
 
     <style>
+    /* Video Modal Styles */
+    #videoModal .modal-content {
+        background-color: #000;
+        border: none;
+    }
+    
+    #videoModal .modal-body {
+        padding: 0;
+        background-color: #000;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    #videoModal .ratio {
+        background: #000;
+    }
+    
+    #videoModal iframe {
+        position: relative;
+        z-index: 2;
+        background: #000;
+        width: 100%;
+        height: 100%;
+        border: none;
+    }
+    
     /* Contact Form Styles */
     .contact-form .form-control,
     .contact-form .form-select {
@@ -969,6 +1024,34 @@ get_header();
     
 
     <script>
+    // Video Functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        const videoModal = document.getElementById('videoModal');
+        const youtubeVideo = document.getElementById('youtubeVideo');
+        
+        // Handle video card clicks
+        document.querySelectorAll('[data-video-id]').forEach(function(card) {
+            card.addEventListener('click', function() {
+                const videoId = this.dataset.videoId;
+                if (videoModal && youtubeVideo) {
+                    // Set autoplay=1 to start playing immediately
+                    youtubeVideo.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&showinfo=0`;
+                    const modal = new bootstrap.Modal(videoModal);
+                    modal.show();
+                }
+            });
+        });
+
+        // Reset video when modal is closed
+        if (videoModal) {
+            videoModal.addEventListener('hidden.bs.modal', function () {
+                if (youtubeVideo) {
+                    youtubeVideo.src = '';
+                }
+            });
+        }
+    });
+
     // Contact Form Handler
     function handleContact(event) {
         event.preventDefault();
