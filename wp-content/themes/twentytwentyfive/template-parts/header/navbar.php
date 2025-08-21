@@ -4,10 +4,10 @@
  */
 ?>
 <!-- Navigation Bar -->
-<nav class="navbar navbar-expand-lg fixed-top navbar-light bg-white shadow-sm py-0" style="top: var(--wp-admin--admin-bar--height, 0);">
+<nav class="navbar navbar-expand-lg fixed-top navbar-light bg-white shadow-sm py-1" style="top: var(--wp-admin--admin-bar--height, 0); min-height: 70px;">
     <div class="container h-100">
-        <a class="navbar-brand fw-bold fs-4 py-0" href="#">
-            <span style="color: #FF0000;">Spanish</span><span style="color: #FFC400;">Talking</span><span class="text-secondary">.com</span>
+        <a class="navbar-brand py-0" href="<?php echo get_permalink(get_page_by_path('landingpage')); ?>">
+            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/spanishtalking_logo.png" alt="SpanishTalking.com" class="navbar-logo">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -15,16 +15,16 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto align-items-center">
                 <li class="nav-item">
-                    <a class="nav-link" href="#home">Home</a>
+                    <a class="nav-link" href="<?php echo get_permalink(get_page_by_path('landingpage')); ?>#home">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#blog">Blog</a>
+                    <a class="nav-link" href="<?php echo get_permalink(get_page_by_path('landingpage')); ?>#blog">Blog</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="https://youtube.com" target="_blank">YouTube</a>
+                    <a class="nav-link" href="<?php echo get_permalink(get_page_by_path('landingpage')); ?>#youtube">YouTube</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#contact">Contact</a>
+                    <a class="nav-link" href="<?php echo get_permalink(get_page_by_path('landingpage')); ?>#contact">Contact</a>
                 </li>
                 <li class="nav-item ms-lg-3">
                     <a href="https://youtube.com" target="_blank" class="btn btn-danger btn-sm rounded-pill px-3 me-2">
@@ -32,7 +32,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#blog" class="btn btn-warning text-dark btn-sm rounded-pill px-3">
+                    <a href="<?php echo get_permalink(get_page_by_path('landingpage')); ?>#blog" class="btn btn-warning text-dark btn-sm rounded-pill px-3">
                         Read the Blog
                     </a>
                 </li>
@@ -47,7 +47,10 @@
     -webkit-backdrop-filter: blur(10px);
     background-color: rgba(255, 255, 255, 0.95) !important;
     transition: all 0.3s ease;
-    height: var(--navbar-height);
+    min-height: 70px;
+    padding: 5px 0;
+    border-bottom: 3px solid #FFB200;
+}
 
     /* Custom button styles */
     .btn-danger {
@@ -90,23 +93,32 @@
     .nav-link:hover {
         color: #FF0000;
     }
-    min-height: auto;
-    padding: 0;
-    border-bottom: 3px solid #FFB200;
 }
 
 .navbar-brand {
-    font-size: 1.5rem;
     padding: 0;
-    height: var(--navbar-height);
+    margin: 0;
+    height: 60px;
     display: flex;
     align-items: center;
+}
+
+.navbar-logo {
+    height: 65px;
+    width: auto;
+    max-width: 200px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.navbar-logo:hover {
+    transform: scale(1.05);
+    opacity: 0.9;
 }
 
 .nav-link {
     font-weight: 500;
     padding: 0 1rem;
-    height: var(--navbar-height);
+    height: 60px;
     display: flex;
     align-items: center;
     color: #DE0000;

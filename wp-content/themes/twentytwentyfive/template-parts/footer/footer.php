@@ -10,8 +10,8 @@
     <div class="container">
         <div class="row gy-4">
             <div class="col-lg-4">
-                <a href="<?php echo home_url('/'); ?>" class="footer-brand">
-                    <span style="color: #FF0000;">Spanish</span><span style="color: #FFB200;">Talking</span><span class="text-white">.com</span>
+                <a href="<?php echo get_permalink(get_page_by_path('landingpage')); ?>" class="footer-brand">
+                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/spanishtalking_logo.png" alt="SpanishTalking.com" class="footer-logo">
                 </a>
                 <p class="mt-3 mb-0 text-muted">Learn Spanish the simple and natural way.</p>
             </div>
@@ -19,10 +19,10 @@
             <div class="col-lg-2">
                 <h6 class="fw-bold mb-3 text-white">Quick Links</h6>
                 <ul class="list-unstyled footer-links">
-                    <li><a href="#home" class="text-muted text-decoration-none">Home</a></li>
-                    <li><a href="#blog" class="text-muted text-decoration-none">Blog</a></li>
-                    <li><a href="#youtube" class="text-muted text-decoration-none">YouTube</a></li>
-                    <li><a href="#contact" class="text-muted text-decoration-none">Contact</a></li>
+                    <li><a href="<?php echo get_permalink(get_page_by_path('landingpage')); ?>#home" class="text-muted text-decoration-none">Home</a></li>
+                    <li><a href="<?php echo get_permalink(get_page_by_path('landingpage')); ?>#blog" class="text-muted text-decoration-none">Blog</a></li>
+                    <li><a href="<?php echo get_permalink(get_page_by_path('landingpage')); ?>#youtube" class="text-muted text-decoration-none">YouTube</a></li>
+                    <li><a href="<?php echo get_permalink(get_page_by_path('landingpage')); ?>#contact" class="text-muted text-decoration-none">Contact</a></li>
                 </ul>
             </div>
             
@@ -44,12 +44,15 @@
             <div class="col-lg-3">
                 <h6 class="fw-bold mb-3 text-white">Newsletter</h6>
                 <p class="text-muted mb-3">Subscribe for weekly Spanish tips!</p>
-                <form class="newsletter-form">
+                <form class="newsletter-form" method="post" action="<?php echo admin_url('admin-ajax.php'); ?>">
                     <div class="input-group">
-                        <input type="email" class="form-control" placeholder="Your email" aria-label="Your email address">
+                        <input type="email" name="newsletter_email" class="form-control" placeholder="Your email" aria-label="Your email address" required>
                         <button class="btn btn-warning text-dark" type="submit">Sign Up</button>
                     </div>
+                    <input type="hidden" name="action" value="newsletter_subscribe">
+                    <?php wp_nonce_field('newsletter_subscribe_nonce', 'newsletter_nonce'); ?>
                 </form>
+                <div id="newsletter-message" class="mt-2" style="display: none;"></div>
             </div>
         </div>
         
@@ -92,13 +95,19 @@
         }
 
         .footer-brand {
-            font-size: 28px;
-            font-weight: 700;
-            text-decoration: none;
-            color: #fff;
             display: inline-block;
             position: relative;
             padding-bottom: 5px;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .footer-logo {
+            height: 120px;
+            width: auto;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            filter: brightness(1.1) drop-shadow(1px 1px 2px rgba(255, 255, 255, 0.5)) drop-shadow(-1px -1px 2px rgba(255, 255, 255, 0.5)) drop-shadow(1px -1px 2px rgba(255, 255, 255, 0.5)) drop-shadow(-1px 1px 2px rgba(255, 255, 255, 0.5));
+            -webkit-filter: brightness(1.1) drop-shadow(1px 1px 2px rgba(255, 255, 255, 0.5)) drop-shadow(-1px -1px 2px rgba(255, 255, 255, 0.5)) drop-shadow(1px -1px 2px rgba(255, 255, 255, 0.5)) drop-shadow(-1px 1px 2px rgba(255, 255, 255, 0.5));
         }
         
         .footer-brand::after {
@@ -114,7 +123,12 @@
         
         .footer-brand:hover {
             text-decoration: none;
-            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        .footer-brand:hover .footer-logo {
+            transform: scale(1.05);
+            opacity: 0.9;
         }
 
         .footer-brand:hover::after {
@@ -151,44 +165,99 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
 
-        .newsletter-form .form-control {
-            border-top-right-radius: 0;
-            border-bottom-right-radius: 0;
-            border: 2px solid rgba(255,255,255,0.2);
-            background-color: rgba(255,255,255,0.1);
-            color: #fff;
-            font-size: 1rem;
-            padding: 0.75rem 1.25rem;
-            height: auto;
+        /* Force footer newsletter form styling */
+        .footer .col-lg-3:last-child,
+        footer .col-lg-3:last-child,
+        .footer [class*="col-"]:last-child,
+        footer [class*="col-"]:last-child {
+            background: transparent !important;
         }
 
-        .newsletter-form .form-control::placeholder {
-            color: rgba(255,255,255,0.6);
+        .footer .newsletter-form,
+        footer .newsletter-form {
+            background: transparent !important;
         }
 
-        .newsletter-form .form-control:focus {
-            background-color: rgba(255,255,255,0.15);
-            border-color: #FFB200;
-            box-shadow: 0 0 0 0.2rem rgba(255, 178, 0, 0.25);
+        .footer .newsletter-form *,
+        footer .newsletter-form * {
+            background: transparent !important;
         }
 
-        .newsletter-form .btn {
-            border-top-left-radius: 0;
-            border-bottom-left-radius: 0;
-            padding: 0.75rem 1.5rem;
-            font-weight: 600;
-            font-size: 1rem;
-            background-color: #FFB200;
-            border-color: #FFB200;
-            color: #000;
-            transition: all 0.3s ease;
+        .footer .newsletter-form .form-control,
+        footer .newsletter-form .form-control {
+            border-top-right-radius: 0 !important;
+            border-bottom-right-radius: 0 !important;
+            border-top-left-radius: 0.375rem !important;
+            border-bottom-left-radius: 0.375rem !important;
+            border: 2px solid rgba(255,255,255,0.2) !important;
+            border-right: none !important;
+            background-color: rgba(255,255,255,0.1) !important;
+            color: #fff !important;
+            font-size: 1rem !important;
+            padding: 0.75rem 1.25rem !important;
+            height: auto !important;
+            flex: 1 !important;
         }
 
-        .newsletter-form .btn:hover {
-            background-color: #e6a100;
-            border-color: #e6a100;
-            color: #000;
-            transform: translateX(3px);
+        .footer .newsletter-form .form-control::placeholder,
+        footer .newsletter-form .form-control::placeholder {
+            color: rgba(255,255,255,0.6) !important;
+        }
+
+        .footer .newsletter-form .form-control:focus,
+        footer .newsletter-form .form-control:focus {
+            background-color: rgba(255,255,255,0.15) !important;
+            border-color: #FFB200 !important;
+            box-shadow: none !important;
+            outline: none !important;
+        }
+
+        .footer .newsletter-form .btn,
+        footer .newsletter-form .btn {
+            border-top-left-radius: 0 !important;
+            border-bottom-left-radius: 0 !important;
+            border-top-right-radius: 0.375rem !important;
+            border-bottom-right-radius: 0.375rem !important;
+            padding: 0.75rem 1.5rem !important;
+            font-weight: 600 !important;
+            font-size: 1rem !important;
+            background-color: #FFB200 !important;
+            border-color: #FFB200 !important;
+            color: #000 !important;
+            transition: all 0.3s ease !important;
+            white-space: nowrap !important;
+        }
+
+        .footer .newsletter-form .btn:hover,
+        footer .newsletter-form .btn:hover {
+            background-color: #e6a100 !important;
+            border-color: #e6a100 !important;
+            color: #000 !important;
+            transform: translateX(2px) !important;
+        }
+
+        .footer .newsletter-form .input-group,
+        footer .newsletter-form .input-group {
+            display: flex !important;
+            width: 100% !important;
+        }
+
+        #newsletter-message {
+            font-size: 0.9rem;
+            padding: 0.5rem;
+            border-radius: 0.25rem;
+        }
+
+        #newsletter-message.success {
+            background-color: rgba(40, 167, 69, 0.2);
+            border: 1px solid rgba(40, 167, 69, 0.5);
+            color: #28a745;
+        }
+
+        #newsletter-message.error {
+            background-color: rgba(220, 53, 69, 0.2);
+            border: 1px solid rgba(220, 53, 69, 0.5);
+            color: #dc3545;
         }
 
         .footer h6 {
@@ -244,6 +313,89 @@
             }
         }
     </style>
+
+    <script>
+    // Newsletter subscription functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        const newsletterForm = document.querySelector('.newsletter-form');
+        const messageDiv = document.getElementById('newsletter-message');
+        
+        if (newsletterForm) {
+            newsletterForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const formData = new FormData(this);
+                const email = formData.get('newsletter_email');
+                
+                // Basic email validation
+                if (!isValidEmail(email)) {
+                    showMessage('Please enter a valid email address.', 'error');
+                    return;
+                }
+                
+                // Show loading state
+                const submitBtn = this.querySelector('button[type="submit"]');
+                const originalText = submitBtn.textContent;
+                submitBtn.textContent = 'Signing Up...';
+                submitBtn.disabled = true;
+                
+                // Simulate newsletter subscription (replace with actual AJAX call)
+                setTimeout(function() {
+                    // Reset button
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                    
+                    // Show success message
+                    showMessage('Thank you for subscribing! Check your email for confirmation.', 'success');
+                    
+                    // Clear form
+                    newsletterForm.reset();
+                }, 1500);
+                
+                // Uncomment below for actual WordPress AJAX implementation
+                /*
+                fetch('<?php echo admin_url('admin-ajax.php'); ?>', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                    
+                    if (data.success) {
+                        showMessage(data.data.message, 'success');
+                        newsletterForm.reset();
+                    } else {
+                        showMessage(data.data.message, 'error');
+                    }
+                })
+                .catch(error => {
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                    showMessage('An error occurred. Please try again.', 'error');
+                });
+                */
+            });
+        }
+        
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+        
+        function showMessage(message, type) {
+            messageDiv.textContent = message;
+            messageDiv.className = 'mt-2 ' + type;
+            messageDiv.style.display = 'block';
+            
+            // Hide message after 5 seconds
+            setTimeout(function() {
+                messageDiv.style.display = 'none';
+            }, 5000);
+        }
+    });
+    </script>
 </footer>
 
 <?php wp_footer(); ?>

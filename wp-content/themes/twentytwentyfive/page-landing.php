@@ -46,7 +46,7 @@ get_header();
 
 <main>
     <!-- Hero Section -->
-    <section class="hero-section position-relative overflow-hidden bg-light py-6" style="min-height: 100vh;">
+    <section class="hero-section position-relative overflow-hidden bg-light pt-5 pb-0 mt-5" style="min-height: 90vh;">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-6" data-aos="fade-up">
@@ -181,7 +181,7 @@ get_header();
     
 
     <!-- Testimonials Section -->
-    <section id="testimonials" class="py-6 bg-light position-relative">
+    <section id="testimonials" class="pt-0 pb-4 bg-light position-relative">
         <div class="container">
             <div class="text-center mb-5">
                 <div class="badge px-3 py-2 rounded-pill mb-3" data-aos="fade-up" 
@@ -419,77 +419,83 @@ get_header();
                                 </div>
                                 <?php endif; ?>
                                 
-                                <div class="d-flex align-items-center mb-4">
-                                    <div class="icon-wrapper-lg rounded-3 
-                                    <?php
-                                    $categories = get_the_category();
-                                    if(!empty($categories)) {
-                                        switch($categories[0]->slug) {
-                                            case 'beginner':
-                                                echo 'bg-primary bg-opacity-10 text-primary';
-                                                break;
-                                            case 'pronunciation':
-                                                echo 'bg-danger bg-opacity-10 text-danger';
-                                                break;
-                                            case 'practical':
-                                                echo 'bg-success bg-opacity-10 text-success';
-                                                break;
-                                            default:
-                                                echo 'bg-primary bg-opacity-10 text-primary';
-                                        }
-                                    } else {
-                                        echo 'bg-primary bg-opacity-10 text-primary';
-                                    }
-                                    ?>">
-                                        <i class="fas <?php 
-                                            if(!empty($categories)) {
-                                                switch($categories[0]->slug) {
-                                                    case 'beginner':
-                                                        echo 'fa-graduation-cap';
-                                                        break;
-                                                    case 'pronunciation':
-                                                        echo 'fa-microphone';
-                                                        break;
-                                                    case 'practical':
-                                                        echo 'fa-comments';
-                                                        break;
-                                                    default:
-                                                        echo 'fa-book';
-                                                }
-                                            } else {
-                                                echo 'fa-book';
+                                <div class="d-flex align-items-start mb-4">
+                                    <div class="category-icon-wrapper flex-shrink-0 me-3">
+                                        <div class="category-icon rounded-circle d-flex align-items-center justify-content-center
+                                        <?php
+                                        $categories = get_the_category();
+                                        if(!empty($categories)) {
+                                            switch($categories[0]->slug) {
+                                                case 'beginner':
+                                                    echo 'bg-gradient-spanish-red';
+                                                    break;
+                                                case 'pronunciation':
+                                                    echo 'bg-gradient-spanish-yellow';
+                                                    break;
+                                                case 'practical':
+                                                    echo 'bg-gradient-spanish-red';
+                                                    break;
+                                                default:
+                                                    echo 'bg-gradient-spanish-red';
                                             }
-                                        ?>"></i>
+                                        } else {
+                                            echo 'bg-gradient-spanish-red';
+                                        }
+                                        ?>" style="width: 60px; height: 60px;">
+                                            <i class="fas <?php 
+                                                if(!empty($categories)) {
+                                                    switch($categories[0]->slug) {
+                                                        case 'beginner':
+                                                            echo 'fa-graduation-cap';
+                                                            break;
+                                                        case 'pronunciation':
+                                                            echo 'fa-microphone';
+                                                            break;
+                                                        case 'practical':
+                                                            echo 'fa-comments';
+                                                            break;
+                                                        default:
+                                                            echo 'fa-book';
+                                                    }
+                                                } else {
+                                                    echo 'fa-book';
+                                                }
+                                            ?> text-white" style="font-size: 22px;"></i>
+                                        </div>
                                     </div>
-                                    <div class="ms-3">
+                                    <div class="flex-grow-1">
                                         <h4 class="card-title fw-bold mb-2 text-dark"><?php the_title(); ?></h4>
-                                        <p class="text-secondary mb-0"><?php echo wp_trim_words(get_the_excerpt(), 10); ?></p>
+                                        <p class="text-secondary mb-0" style="font-size: 14px; line-height: 1.5;"><?php echo wp_trim_words(get_the_excerpt(), 12); ?></p>
                                     </div>
                                 </div>
                                 
-                                <div class="d-flex align-items-center text-secondary">
-                                    <?php
-                                    if(!empty($categories)) {
-                                        $category = $categories[0];
-                                        $badge_class = '';
-                                        switch($category->slug) {
-                                            case 'beginner':
-                                                $badge_class = 'bg-primary bg-opacity-10 text-primary';
-                                                break;
-                                            case 'pronunciation':
-                                                $badge_class = 'bg-danger bg-opacity-10 text-danger';
-                                                break;
-                                            case 'practical':
-                                                $badge_class = 'bg-success bg-opacity-10 text-success';
-                                                break;
-                                            default:
-                                                $badge_class = 'bg-primary bg-opacity-10 text-primary';
+                                <div class="d-flex align-items-center justify-content-between pt-3" style="border-top: 1px solid #e9ecef;">
+                                    <div class="d-flex align-items-center gap-3">
+                                        <?php
+                                        if(!empty($categories)) {
+                                            $category = $categories[0];
+                                            $badge_class = '';
+                                            switch($category->slug) {
+                                                case 'beginner':
+                                                    $badge_class = 'badge-gradient-spanish-red';
+                                                    break;
+                                                case 'pronunciation':
+                                                    $badge_class = 'badge-gradient-spanish-yellow';
+                                                    break;
+                                                case 'practical':
+                                                    $badge_class = 'badge-gradient-spanish-red';
+                                                    break;
+                                                default:
+                                                    $badge_class = 'badge-gradient-spanish-red';
+                                            }
+                                            echo '<span class="badge ' . esc_attr($badge_class) . '" style="font-size: 11px; padding: 4px 10px;">' . esc_html($category->name) . '</span>';
                                         }
-                                        echo '<span class="badge ' . esc_attr($badge_class) . ' me-2">' . esc_html($category->name) . '</span>';
-                                    }
-                                    ?>
-                                    <i class="fas fa-clock me-2"></i>
-                                    <small><?php echo esc_html(get_the_date()); ?></small>
+                                        ?>
+                                        <div class="d-flex align-items-center text-secondary">
+                                            <i class="fas fa-calendar-alt me-1 text-secondary" style="font-size: 12px;"></i>
+                                            <small class="text-secondary" style="font-size: 12px;"><?php echo get_the_date('M j, Y'); ?></small>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </a>
@@ -671,6 +677,51 @@ get_header();
     </section>
 
     <style>
+    /* Blog Card Spanish Flag Gradient Styles */
+    .bg-gradient-spanish-red {
+        background: linear-gradient(135deg, #ff0000ff 0%, #ff0000ff 100%);
+        box-shadow: 0 2px 10px rgba(138, 137, 137, 1);
+    }
+    
+    .bg-gradient-spanish-yellow {
+        background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+        box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+    }
+    
+    .badge-gradient-spanish-red {
+        background: linear-gradient(135deg, #fdec00ff 0%, #ff0000ff 100%);
+        color: white !important;
+        border: none;
+        font-weight: 600;
+    }
+    
+    .badge-gradient-spanish-yellow {
+        background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+        color: white !important;
+        border: none;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.4);
+        font-weight: 600;
+    }
+    
+    .category-icon-wrapper {
+        transition: transform 0.3s ease;
+    }
+    
+    .blog-card:hover .category-icon-wrapper {
+        transform: scale(1.1);
+    }
+    
+    .blog-card {
+        transition: all 0.3s ease;
+        border: 1px solid rgba(0,0,0,0.05) !important;
+    }
+    
+    .blog-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(170,21,27,0.15) !important;
+        border-color: rgba(170,21,27,0.2) !important;
+    }
+    
     /* Video Modal Styles */
     #videoModal .modal-content {
         background-color: #000;
@@ -987,7 +1038,7 @@ get_header();
                 </div>
                 
                 <!-- Contact Information Cards -->
-                <div class="row g-4 mt-5">
+                <!-- <div class="row g-4 mt-5">
                     <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
                         <div class="card border-0 bg-white shadow-sm rounded-4 p-4 text-center hover-float">
                             <div class="text-danger mb-3">
@@ -1015,7 +1066,7 @@ get_header();
                             <p class="text-secondary mb-0">Mon - Fri, 9AM - 5PM</p>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>

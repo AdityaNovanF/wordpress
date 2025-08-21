@@ -61,6 +61,43 @@ function add_social_media_fields($user_contact) {
 }
 add_filter('user_contactmethods', 'add_social_media_fields');
 
+// Add custom favicon
+function add_custom_favicon() {
+    $favicon_url = get_template_directory_uri() . '/assets/images/android-chrome-logo.png';
+    ?>
+    <!-- High-resolution favicon for better visibility -->
+    <link rel="icon" type="image/png" sizes="512x512" href="<?php echo $favicon_url; ?>">
+    <link rel="icon" type="image/png" sizes="256x256" href="<?php echo $favicon_url; ?>">
+    <link rel="icon" type="image/png" sizes="192x192" href="<?php echo $favicon_url; ?>">
+    <link rel="icon" type="image/png" sizes="128x128" href="<?php echo $favicon_url; ?>">
+    <link rel="icon" type="image/png" sizes="96x96" href="<?php echo $favicon_url; ?>">
+    <link rel="icon" type="image/png" sizes="64x64" href="<?php echo $favicon_url; ?>">
+    <link rel="icon" type="image/png" sizes="48x48" href="<?php echo $favicon_url; ?>">
+    <link rel="icon" type="image/png" sizes="32x32" href="<?php echo $favicon_url; ?>">
+    <link rel="icon" type="image/png" sizes="16x16" href="<?php echo $favicon_url; ?>">
+    
+    <!-- Apple devices -->
+    <link rel="apple-touch-icon" sizes="180x180" href="<?php echo $favicon_url; ?>">
+    <link rel="apple-touch-icon" sizes="152x152" href="<?php echo $favicon_url; ?>">
+    <link rel="apple-touch-icon" sizes="144x144" href="<?php echo $favicon_url; ?>">
+    <link rel="apple-touch-icon" sizes="120x120" href="<?php echo $favicon_url; ?>">
+    <link rel="apple-touch-icon" sizes="114x114" href="<?php echo $favicon_url; ?>">
+    <link rel="apple-touch-icon" sizes="76x76" href="<?php echo $favicon_url; ?>">
+    <link rel="apple-touch-icon" sizes="72x72" href="<?php echo $favicon_url; ?>">
+    <link rel="apple-touch-icon" sizes="60x60" href="<?php echo $favicon_url; ?>">
+    <link rel="apple-touch-icon" sizes="57x57" href="<?php echo $favicon_url; ?>">
+    
+    <!-- Standard favicon -->
+    <link rel="shortcut icon" href="<?php echo $favicon_url; ?>" type="image/png">
+    <link rel="icon" href="<?php echo $favicon_url; ?>" type="image/png">
+    
+    <!-- For older browsers -->
+    <meta name="msapplication-TileImage" content="<?php echo $favicon_url; ?>">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <?php
+}
+add_action('wp_head', 'add_custom_favicon');
+
 // Custom image sizes
 add_image_size('article-featured', 1200, 628, true);
 add_image_size('article-thumbnail', 600, 400, true);
