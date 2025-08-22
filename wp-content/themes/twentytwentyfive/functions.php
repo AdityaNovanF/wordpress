@@ -274,3 +274,101 @@ if ( ! function_exists( 'twentytwentyfive_format_binding' ) ) :
 		}
 	}
 endif;
+
+/**
+ * ===================================================================
+ * YouTube Video Grid Manager - Admin Settings
+ * ===================================================================
+ * Adds a theme options page to manage the YouTube videos on the landing page.
+ */
+
+// 1. Add the admin menu page under "Appearance"
+function youtube_video_grid_add_admin_menu() {
+    add_theme_page(
+        'YouTube Video Grid',          // Page Title
+        'YouTube Video Grid',          // Menu Title
+        'manage_options',              // Capability
+        'youtube_video_grid',          // Menu Slug
+        'youtube_video_grid_options_page_html' // Function to render the page
+    );
+}
+add_action('admin_menu', 'youtube_video_grid_add_admin_menu');
+
+// 2. Register settings, sections, and fields
+function youtube_video_grid_settings_init() {
+    // Register a single option to store all our settings in an array
+    register_setting('youtube_video_grid_page', 'youtube_video_grid_options', 'youtube_video_grid_options_sanitize');
+
+    // Add a settings section
+    add_settings_section(
+        'youtube_video_grid_section',
+        'Manage Landing Page Videos',
+        null,
+        'youtube_video_grid_page'
+    );
+
+    // Add fields for each video
+    add_settings_field('featured_video_url', 'Featured Video URL', 'youtube_video_grid_field_html', 'youtube_video_grid_page', 'youtube_video_grid_section', ['id' => 'featured_video_url', 'label' => 'Main large video on the left']);
+    add_settings_field('featured_video_title', 'Featured Video Title', 'youtube_video_grid_field_html', 'youtube_video_grid_page', 'youtube_video_grid_section', ['id' => 'featured_video_title', 'label' => 'Title for the featured video']);
+    
+    add_settings_field('video_2_url', 'Video 2 URL', 'youtube_video_grid_field_html', 'youtube_video_grid_page', 'youtube_video_grid_section', ['id' => 'video_2_url', 'label' => 'Top-right video']);
+    add_settings_field('video_2_title', 'Video 2 Title', 'youtube_video_grid_field_html', 'youtube_video_grid_page', 'youtube_video_grid_section', ['id' => 'video_2_title', 'label' => 'Title for video 2']);
+
+    add_settings_field('video_3_url', 'Video 3 URL', 'youtube_video_grid_field_html', 'youtube_video_grid_page', 'youtube_video_grid_section', ['id' => 'video_3_url', 'label' => 'Bottom-right video']);
+    add_settings_field('video_3_title', 'Video 3 Title', 'youtube_video_grid_field_html', 'youtube_video_grid_page', 'youtube_video_grid_section', ['id' => 'video_3_title', 'label' => 'Title for video 3']);
+}
+add_action('admin_init', 'youtube_video_grid_settings_init');
+
+// 3. Callback function to render the input fields
+function youtube_video_grid_field_html($args) {
+    $options = get_option('youtube_video_grid_options');
+    $value = isset($options[$args['id']]) ? $options[$args['id']] : '';
+    ?>
+    <input type="text" name="youtube_video_grid_options[<?php echo esc_attr($args['id']); ?>]" value="<?php echo esc_attr($value); ?>" class="regular-text">
+    <p class="description"><?php echo esc_html($args['label']); ?></p>
+    <?php
+}
+
+// 4. Callback function to sanitize the input
+function youtube_video_grid_options_sanitize($input) {
+    $sanitized_input = [];
+    if (isset($input['featured_video_url'])) {
+        $sanitized_input['featured_video_url'] = esc_url_raw($input['featured_video_url']);
+    }
+    if (isset($input['featured_video_title'])) {
+        $sanitized_input['featured_video_title'] = sanitize_text_field($input['featured_video_title']);
+    }
+    if (isset($input['video_2_url'])) {
+        $sanitized_input['video_2_url'] = esc_url_raw($input['video_2_url']);
+    }
+    if (isset($input['video_2_title'])) {
+        $sanitized_input['video_2_title'] = sanitize_text_field($input['video_2_title']);
+    }
+    if (isset($input['video_3_url'])) {
+        $sanitized_input['video_3_url'] = esc_url_raw($input['video_3_url']);
+    }
+    if (isset($input['video_3_title'])) {
+        $sanitized_input['video_3_title'] = sanitize_text_field($input['video_3_title']);
+    }
+    return $sanitized_input;
+}
+
+// 5. Function to render the main admin page HTML
+function youtube_video_grid_options_page_html() {
+    if (!current_user_can('manage_options')) {
+        return;
+    }
+    ?>
+    <div class="wrap">
+        <h1><?php echo esc_html(get_admin_page_title()); ?></h1>
+        <p>Enter the full YouTube video URLs below. The theme will automatically extract the video ID and generate thumbnails.</p>
+        <form action="options.php" method="post">
+            <?php
+            settings_fields('youtube_video_grid_page');
+            do_settings_sections('youtube_video_grid_page');
+            submit_button('Save Settings');
+            ?>
+        </form>
+    </div>
+    <?php
+}

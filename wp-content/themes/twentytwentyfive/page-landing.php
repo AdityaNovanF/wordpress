@@ -590,15 +590,40 @@ get_header();
 
             <!-- Featured Videos Grid -->
             <div class="row g-4">
+                <?php
+                // Get saved video options from the database
+                $video_options = get_option('youtube_video_grid_options');
+
+                // Helper function to extract YouTube Video ID from URL
+                if (!function_exists('get_youtube_id_from_url')) {
+                    function get_youtube_id_from_url($url) {
+                        if (preg_match('%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i', $url, $match)) {
+                            return $match[1];
+                        }
+                        return '';
+                    }
+                }
+
+                // Set default values if options are not set yet
+                $featured_video_id = !empty($video_options['featured_video_url']) ? get_youtube_id_from_url($video_options['featured_video_url']) : 'J_BwA2YUIso';
+                $featured_video_title = !empty($video_options['featured_video_title']) ? $video_options['featured_video_title'] : 'Spanish Conversation For Beginners';
+
+                $video_2_id = !empty($video_options['video_2_url']) ? get_youtube_id_from_url($video_options['video_2_url']) : 'znh2FjprL8E';
+                $video_2_title = !empty($video_options['video_2_title']) ? $video_options['video_2_title'] : 'Master Days & Daily Routine';
+
+                $video_3_id = !empty($video_options['video_3_url']) ? get_youtube_id_from_url($video_options['video_3_url']) : '5SzS35aFCuI';
+                $video_3_title = !empty($video_options['video_3_title']) ? $video_options['video_3_title'] : 'Easy Spanish Conversation in the Elevator';
+                ?>
+
                 <!-- Featured Video 1 - Large -->
                 <div class="col-lg-8" data-aos="fade-up">
-                    <div class="card border-0 shadow-lg hover-float rounded-4 overflow-hidden cursor-pointer" data-video-id="J_BwA2YUIso">
+                    <div class="card border-0 shadow-lg hover-float rounded-4 overflow-hidden cursor-pointer" data-video-id="<?php echo esc_attr($featured_video_id); ?>">
                         <div class="position-relative" style="padding-bottom: 56.25%;">
-                            <img src="https://i3.ytimg.com/vi/J_BwA2YUIso/hqdefault.jpg" 
-                                 alt="Featured Spanish Lesson" 
+                            <img src="https://i3.ytimg.com/vi/<?php echo esc_attr($featured_video_id); ?>/maxresdefault.jpg" 
+                                 alt="<?php echo esc_attr($featured_video_title); ?>" 
                                  class="position-absolute w-100 h-100 object-fit-cover"
                                  style="top: 0; left: 0;"
-                                 onerror="this.src='https://i3.ytimg.com/vi/J_BwA2YUIso/sddefault.jpg'">
+                                 onerror="this.src='https://i3.ytimg.com/vi/<?php echo esc_attr($featured_video_id); ?>/hqdefault.jpg'">
                             <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center video-hover-effect bg-dark bg-opacity-50">
                                 <div class="play-button bg-danger rounded-circle d-flex align-items-center justify-content-center" style="width: 64px; height: 64px;">
                                     <i class="fas fa-play text-white fs-3"></i>
@@ -606,7 +631,7 @@ get_header();
                             </div>
                             <div class="position-absolute bottom-0 start-0 w-100 p-3 bg-dark bg-opacity-75">
                                 <span class="badge bg-danger">Featured</span>
-                                <h5 class="text-white mt-2 mb-0">Spanish Conversation For Beginners | Spanish Conversation: At The Market</h5>
+                                <h5 class="text-white mt-2 mb-0"><?php echo esc_html($featured_video_title); ?></h5>
                             </div>
                         </div>
                     </div>
@@ -617,19 +642,19 @@ get_header();
                     <div class="row g-4">
                         <!-- Video 2 -->
                         <div class="col-12" data-aos="fade-up" data-aos-delay="100">
-                            <div class="card border-0 shadow-sm hover-float rounded-4 overflow-hidden cursor-pointer video-card" data-video-id="znh2FjprL8E">
+                            <div class="card border-0 shadow-sm hover-float rounded-4 overflow-hidden cursor-pointer video-card" data-video-id="<?php echo esc_attr($video_2_id); ?>">
                                 <div class="position-relative">
-                                    <img src="https://img.youtube.com/vi/znh2FjprL8E/maxresdefault.jpg" 
-                                         alt="Spanish Numbers" 
+                                    <img src="https://img.youtube.com/vi/<?php echo esc_attr($video_2_id); ?>/maxresdefault.jpg" 
+                                         alt="<?php echo esc_attr($video_2_title); ?>" 
                                          class="img-fluid w-100"
-                                         onerror="this.src='https://img.youtube.com/vi/znh2FjprL8E/hqdefault.jpg'">
+                                         onerror="this.src='https://img.youtube.com/vi/<?php echo esc_attr($video_2_id); ?>/hqdefault.jpg'">
                                     <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center video-hover-effect bg-dark bg-opacity-50">
                                         <div class="play-button bg-danger rounded-circle d-flex align-items-center justify-content-center">
                                             <i class="fas fa-play text-white"></i>
                                         </div>
                                     </div>
                                     <div class="position-absolute bottom-0 start-0 w-100 p-3 bg-dark bg-opacity-75">
-                                        <h6 class="text-white mb-0">Spanish Lessons for Beginners: Master Days & Daily Routine with this Conversation</h6>
+                                        <h6 class="text-white mb-0"><?php echo esc_html($video_2_title); ?></h6>
                                     </div>
                                 </div>
                             </div>
@@ -637,13 +662,13 @@ get_header();
 
                         <!-- Video 3 -->
                         <div class="col-12" data-aos="fade-up" data-aos-delay="200">
-                            <div class="card border-0 shadow-sm hover-float rounded-4 overflow-hidden cursor-pointer video-card" data-video-id="5SzS35aFCuI">
+                            <div class="card border-0 shadow-sm hover-float rounded-4 overflow-hidden cursor-pointer video-card" data-video-id="<?php echo esc_attr($video_3_id); ?>">
                                 <div class="position-relative">
                                     <div class="ratio ratio-16x9">
-                                        <img src="https://img.youtube.com/vi/5SzS35aFCuI/maxresdefault.jpg" 
-                                             alt="Common Phrases" 
+                                        <img src="https://img.youtube.com/vi/<?php echo esc_attr($video_3_id); ?>/maxresdefault.jpg" 
+                                             alt="<?php echo esc_attr($video_3_title); ?>" 
                                              class="img-fluid w-100"
-                                             onerror="this.src='https://img.youtube.com/vi/5SzS35aFCuI/hqdefault.jpg'">
+                                             onerror="this.src='https://img.youtube.com/vi/<?php echo esc_attr($video_3_id); ?>/hqdefault.jpg'">
                                     </div>
                                     <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center video-hover-effect bg-dark bg-opacity-50">
                                         <div class="play-button bg-danger rounded-circle d-flex align-items-center justify-content-center">
@@ -651,7 +676,7 @@ get_header();
                                         </div>
                                     </div>
                                     <div class="position-absolute bottom-0 start-0 w-100 p-3 bg-dark bg-opacity-75">
-                                        <h6 class="text-white mb-0">Learn Spanish for Beginners | Easy Spanish Conversation in the Elevator</h6>
+                                        <h6 class="text-white mb-0"><?php echo esc_html($video_3_title); ?></h6>
                                     </div>
                                 </div>
                             </div>
