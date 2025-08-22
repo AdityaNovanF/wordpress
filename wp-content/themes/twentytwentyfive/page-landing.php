@@ -413,58 +413,63 @@ get_header();
                     <div class="col-lg-6" data-aos="fade-up" data-aos-delay="<?php echo esc_attr($delay); ?>">
                         <a href="<?php the_permalink(); ?>" class="card blog-card border-0 bg-white shadow-sm hover-float rounded-4 h-100 text-decoration-none">
                             <div class="card-body p-4">
-                                <?php if(has_post_thumbnail()): ?>
-                                <div class="card-img-wrapper rounded-4 mb-4 overflow-hidden">
-                                    <?php the_post_thumbnail('medium_large', array('class' => 'card-img-top w-100 h-auto')); ?>
-                                </div>
-                                <?php endif; ?>
-                                
                                 <div class="d-flex align-items-start mb-4">
-                                    <div class="category-icon-wrapper flex-shrink-0 me-3">
-                                        <div class="category-icon rounded-circle d-flex align-items-center justify-content-center
-                                        <?php
-                                        $categories = get_the_category();
-                                        if(!empty($categories)) {
-                                            switch($categories[0]->slug) {
-                                                case 'beginner':
-                                                    echo 'bg-gradient-spanish-red';
-                                                    break;
-                                                case 'pronunciation':
-                                                    echo 'bg-gradient-spanish-yellow';
-                                                    break;
-                                                case 'practical':
-                                                    echo 'bg-gradient-spanish-red';
-                                                    break;
-                                                default:
-                                                    echo 'bg-gradient-spanish-red';
+                                    <!-- Article Image - Small thumbnail on left -->
+                                    <div class="article-thumbnail-wrapper flex-shrink-0 me-3">
+                                        <?php 
+                                        $has_image = false;
+                                        
+                                        // Cek featured image terlebih dahulu
+                                        if (has_post_thumbnail()) {
+                                            $full_image_url = wp_get_attachment_image_src(get_post_thumbnail_id(), 'thumbnail');
+                                            if ($full_image_url) {
+                                                $has_image = true;
+                                                ?>
+                                                <img src="<?php echo esc_url($full_image_url[0]); ?>" 
+                                                     class="rounded-3" 
+                                                     alt="<?php echo esc_attr(get_the_title()); ?>"
+                                                     style="width: 120px; height: 120px; object-fit: cover;"
+                                                     loading="lazy">
+                                                <?php
                                             }
-                                        } else {
-                                            echo 'bg-gradient-spanish-red';
                                         }
-                                        ?>" style="width: 60px; height: 60px;">
-                                            <i class="fas <?php 
-                                                if(!empty($categories)) {
-                                                    switch($categories[0]->slug) {
-                                                        case 'beginner':
-                                                            echo 'fa-graduation-cap';
-                                                            break;
-                                                        case 'pronunciation':
-                                                            echo 'fa-microphone';
-                                                            break;
-                                                        case 'practical':
-                                                            echo 'fa-comments';
-                                                            break;
-                                                        default:
-                                                            echo 'fa-book';
-                                                    }
-                                                } else {
-                                                    echo 'fa-book';
-                                                }
-                                            ?> text-white" style="font-size: 22px;"></i>
-                                        </div>
+                                        
+                                        // Jika tidak ada featured image, cari gambar dari konten
+                                        if (!$has_image) {
+                                            $post = get_post();
+                                            $content = $post->post_content;
+                                            preg_match_all('/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $content, $matches);
+                                            
+                                            if (!empty($matches[1][0])) {
+                                                $has_image = true;
+                                                $content_image = $matches[1][0];
+                                                ?>
+                                                <img src="<?php echo esc_url($content_image); ?>" 
+                                                     class="rounded-3" 
+                                                     alt="<?php echo esc_attr(get_the_title()); ?>"
+                                                     style="width: 120px; height: 120px; object-fit: cover;"
+                                                     loading="lazy">
+                                                <?php
+                                            }
+                                        }
+                                        
+                                        // Jika sama sekali tidak ada gambar, gunakan default dengan icon
+                                        if (!$has_image) {
+                                            ?>
+                                            <div class="default-img-placeholder d-flex align-items-center justify-content-center rounded-3" 
+                                                 style="width: 120px; height: 120px; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);">
+                                                <i class="fas fa-book-open text-secondary" style="font-size: 1.5rem; opacity: 0.6;"></i>
+                                            </div>
+                                            <?php
+                                        }
+                                        ?> 
                                     </div>
+                                    
+                                    <!-- Content Section -->
                                     <div class="flex-grow-1">
-                                        <h4 class="card-title fw-bold mb-2 text-dark"><?php the_title(); ?></h4>
+                                        <h4 class="card-title fw-bold mb-2 text-dark">
+                                            <?php the_title(); ?>
+                                        </h4>
                                         <p class="text-secondary mb-0" style="font-size: 14px; line-height: 1.5;"><?php echo wp_trim_words(get_the_excerpt(), 12); ?></p>
                                     </div>
                                 </div>
@@ -472,6 +477,7 @@ get_header();
                                 <div class="d-flex align-items-center justify-content-between pt-3" style="border-top: 1px solid #e9ecef;">
                                     <div class="d-flex align-items-center gap-3">
                                         <?php
+                                        $categories = get_the_category();
                                         if(!empty($categories)) {
                                             $category = $categories[0];
                                             $badge_class = '';
