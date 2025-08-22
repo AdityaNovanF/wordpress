@@ -428,7 +428,7 @@ get_header();
                                                 <img src="<?php echo esc_url($full_image_url[0]); ?>" 
                                                      class="rounded-3" 
                                                      alt="<?php echo esc_attr(get_the_title()); ?>"
-                                                     style="width: 120px; height: 120px; object-fit: cover;"
+                                                     style="width: 200px; height: 130px; object-fit: cover;"
                                                      loading="lazy">
                                                 <?php
                                             }
@@ -447,7 +447,7 @@ get_header();
                                                 <img src="<?php echo esc_url($content_image); ?>" 
                                                      class="rounded-3" 
                                                      alt="<?php echo esc_attr(get_the_title()); ?>"
-                                                     style="width: 120px; height: 120px; object-fit: cover;"
+                                                     style="width: 200px; height: 130px; object-fit: cover;"
                                                      loading="lazy">
                                                 <?php
                                             }
@@ -457,7 +457,7 @@ get_header();
                                         if (!$has_image) {
                                             ?>
                                             <div class="default-img-placeholder d-flex align-items-center justify-content-center rounded-3" 
-                                                 style="width: 120px; height: 120px; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);">
+                                                 style="width: 200px; height: 130px; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);">
                                                 <i class="fas fa-book-open text-secondary" style="font-size: 1.5rem; opacity: 0.6;"></i>
                                             </div>
                                             <?php
